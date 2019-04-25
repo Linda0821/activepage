@@ -1,0 +1,221 @@
+*{
+    padding:0;
+    margin:0;
+}
+html,body {
+    width: 100%;
+    font: normal normal 22.5px Arial,Helvetica,sans-serif;
+    color:#2c2668;
+    background-color: #be2a2a;
+}
+.moon{
+    width:100%;
+    height:25.2rem;
+    background:transparent url("../img/bg_page.png") no-repeat center/cover !important;
+    position: relative;
+}
+button {
+    background-color: transparent;
+    border:none;
+    outline:none;
+}
+.moon button{
+    position:absolute;
+}
+.btn1{
+    width:5.07689rem;
+    height:1rem;
+    background:transparent url("../img/how.png") no-repeat center/cover !important;
+    top:.18889rem;
+    right:.088889rem;
+}
+.btn2{
+    width:10.86667rem;
+    height:1.64444rem;
+    background:transparent url("../img/cashbtn.png") no-repeat center/cover !important;
+    top:5.66667rem;
+    left:2.4rem;
+    color:#be2a2a;
+    font-size:.75556rem;
+    font-weight:600;
+}
+.btn3{
+    width: 6.1rem;
+    height: 1.95rem;
+    top: 18.88889rem;
+    background:transparent url("../img/gotoappr.png") no-repeat center/cover !important;
+    left:1.54444rem;
+}
+.btn4{
+    width: 6.1rem;
+    height: 1.95rem;
+    top: 18.88889rem;
+    background:transparent url("../img/palygame.png") no-repeat center/cover !important;
+    right:1.54444rem;
+}
+.btn_s{
+    width: 104px;
+    height: 36px;
+    line-height: 36px;
+    background: transparent url('../img/share.png') no-repeat center/cover !important;
+    position: absolute;
+    left:.7rem;
+}
+.moon h1{
+    width: 100%;
+    font-size: .88889rem;
+    color:#be2a2a;
+    font-weight:600;
+    position: absolute;
+    top:13.88889rem;
+    text-align: center;
+}
+.num-1{
+    font-size: .66667rem;
+    color:#be2a2a;
+    position: absolute;
+    top:15.44444rem;
+    left:1.6rem;
+}
+.glory-medal-num,.gold-medal-num{
+    padding-left: 1rem;
+}
+.gold-medal-num:before{
+    content: '';
+    background: url('../img/gold.png') no-repeat top left /.8rem .8rem;/*兼容没测*/
+    position: absolute;
+    top: .1rem;
+    left:5.4rem;
+    z-index: 2;
+    width: .8rem;
+    height: .8rem;
+}
+.num-2{
+    font-size: .66667rem;
+    color:#be2a2a;
+    position: absolute;
+    top: 16.58889rem;
+    left: 7rem;
+}
+
+.glory-medal-num:before{
+    content: '';
+    background: url('../img/glory.png') no-repeat top left /.8rem .97778rem;/*兼容没测*/
+    position: absolute;
+    top: .1rem;
+    left:0;
+    z-index: 2;
+    width: .8rem;
+    height: .97778rem;
+}
+.bt{
+    position: absolute;
+    top: 21.58889rem;
+    left:1.54444rem;
+}
+.bt h2,.bt p{
+    color:#be2a2a;
+    font-size: .53333rem;
+
+}
+
+.moon-money span{
+    font-size: 1.3333rem;
+    color:#fde8b4;
+}
+.moon-money {
+    font-size:.57777rem;
+    color:#fde8b4;
+}
+#myselect{
+    background-color: #e7cea8;
+    border: none;
+    width: 10rem;
+    padding: 0 .2222rem;
+    margin: .6rem 0;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border-radius: .22222rem;
+    color: #be2a2a;
+    font-size: .66667rem;
+}
+select:focus {
+    border: none;
+}
+#myselect option{
+    outline: none;
+    color: #be2a2a;
+    background-color: #e7cea8;
+}
+option:hover{
+    background: #EBCCD1;
+}
+
+作者：詹小云
+链接：https://www.jianshu.com/p/f554c84f01f6
+           来源：简书
+           简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+/*登录弹框*/
+#popUp_1  img{
+    width:100%;
+    /* margin-bottom: 1rem; */
+    position:absolute;
+    top:-2rem;
+    left:0;
+}
+#popUp_1 .notice1{
+    font-size: .71111rem;
+    position:absolute;
+    top:2.4rem;
+    left:0;
+    width:100%;
+    text-align: center;
+    padding-bottom: .66667rem;
+    border-bottom: 0.02222rem solid #efefef;
+}
+#popUp_1 .login_pop{
+    width:3rem;
+    position:absolute;
+    top:4.4rem;
+    right:1.2rem;
+    font-size: .88889rem;
+    color:#f1a23e;
+}
+#popUp_1 .close_pop{
+    width:3rem;
+    position:absolute;
+    top:4.4rem;
+    left:1.2rem;
+    font-size: .88889rem;
+    color:#b9b9b9;
+}
+.popMaskIn {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34,34,35,0);
+    z-index: 100;
+    display:none;
+}
+#exchange_popup .gold-medal-num:before, #exchange_popup .glory-medal-num:before{
+    left:0rem;
+}
+#btn_s{
+    width: 116px;
+    height: 36px;
+    line-height: 36px;
+    background: transparent url('../img/isCashBtn.png') no-repeat center/cover !important;
+    position: absolute;
+    left: 3.6rem;
+    top:8.7rem;
+}
+#exchange_popup .num{
+    color:#e7cea8;
+    position:relative;
+    width:5.3333rem;
+    margin:0 auto;
+    text-align: left;
+    height:1.2rem;
+    line-height:1.2rem;
+}
