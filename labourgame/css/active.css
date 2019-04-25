@@ -11,7 +11,7 @@ html,body {
 .moon{
     width:100%;
     height:25.2rem;
-    background:transparent url("../img/bg_page.png") no-repeat center/cover !important;
+    background:transparent url("../img/bg_page_min2.png") no-repeat center/cover !important;
     position: relative;
 }
 button {
