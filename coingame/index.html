@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+    <title>HTML5接金币小游戏</title>
+    <style type="text/css">
+        *{
+            padding:0;
+            margin:0;  
+        }
+        html,body{
+            width:100%;
+            height:100%;
+            
+            overflow:hidden;
+        }
+        #f{
+            font-size:20px; 
+            width:10%;
+            height:5%;
+            position:absolute; 
+            top:4.2%;
+            left: 25%;
+            text-align:right
+        }
+        #m{
+            font-size:20px; 
+            width:7%;
+            height:5%;
+            position:absolute; 
+            top:4.2%; 
+            left: 85.5%;
+            text-align:right
+        }
+        #box{
+            width:100%;
+            height:100%;
+        }
+        @media (max-device-width : 1024px) and (orientation : landscape) {
+            html { transform: rotate(90deg); }
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+    <div id="box" style="border: 0;margin: 0;padding: 0;overflow: hidden;background-color: #000000;">
+        <canvas id="canvas" style="display: block;">
+        
+        </canvas>
+        <div id="f"></div>
+        <div id="m"></div>
+   </div>
+   <script type="text/javascript" src="js/game.js"></script>
+</body>
+</html>
