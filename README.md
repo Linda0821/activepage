@@ -11,3 +11,7 @@ npm install
 
 # 打包项目
 npm run build
+
+# git
+git push origin master
+master : https://github.com/Linda0821/coingame.git 的master分支上
