@@ -1,0 +1,105 @@
+//@import "_mobileRem";
+
+$brower-default-font-size:100px !default;
+@function rem($px) {
+  @return $px / $brower-default-font-size * 1rem;
+}
+.game {
+  margin: 0 auto;
+  width: rem(720px);
+  min-height: rem(2701px);
+  background: url(../img/bg.png) center top no-repeat;
+  background-size: rem(720px) rem(2701px);
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .title {
+    height:rem(560px);
+    position:relative;
+    #count-num{
+      width:100%;
+      position: absolute;
+      bottom:rem(90px);
+      text-align: center;
+      font-size: rem(30px);
+      font-weight:600;
+      color:#522911;
+      span{
+        font-size: rem(30px);
+        color: #f54e42;
+        text-decoration: underline;
+      }
+    }
+    #timer {
+      width: 56%;
+      position: absolute;
+      bottom:0;
+      left:30%;
+      text-align: center;
+      color:#fff;
+    }
+    #timer span {
+      display: inline-block;
+      width:rem(78px);
+      height:rem(76px);
+      padding-left: rem(16px);
+      line-height:rem(76px);
+      font-size: rem(30px);
+      color:#fff;
+    }
+  }
+  .wheel-box {
+    width: rem(498px);
+    height: rem(498px);
+    margin: 0 auto;
+    position: relative;
+    #wheel {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-radius: 50%;
+      top: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+      left: 0;
+      background: url('../img/pan.png') center center no-repeat;
+      background-size: rem(498px) rem(498px);
+    }
+    #arrow {
+      width: rem(144px);
+      height: rem(165px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 2;
+      background: url('../img/zhen.png') center center no-repeat;
+      background-size: rem(144px) rem(165px);
+    }
+  }
+  .luckDrawCount {
+    text-align: center;
+    color: #eb1111;
+    font-size: rem(30px);
+    font-weight: 600;
+    margin: rem(50px) auto;
+    z-index: 99;
+    span{
+      color:#782f18;
+    }
+  }
+  .fixed-btn {
+    width:100%;
+    position:fixed;
+    bottom:0;
+    img{
+      float:left;
+      width:rem(350px);
+      padding-left: rem(7px);
+    }
+  }
+
+}
+
