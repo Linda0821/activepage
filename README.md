@@ -15,3 +15,6 @@ npm run build
 # git
 git push origin master
 master : https://github.com/Linda0821/coingame.git 的master分支上
+行为切换到分支 labour-game
+1. 新建本地分支labour-game并切换: git checkout -b labour-game
+2. 新建并上传到远程分支labour-game: git push origin labour-game:labour-game

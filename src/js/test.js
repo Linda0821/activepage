@@ -4,11 +4,16 @@ var canvasObj = $('#canvas');//$ canvas对象
 var ca = document.getElementById("canvas"); //js canvas对象;
 
 var ctx = ca.getContext("2d");
+/*import bgURL from '../img/bj.png'
+import renURL from '../img/ren.png'*/
+//import gloryURL from '../img/glory_big.png'
+
 var interval;//计时器
 //var interval1;//定时器
 
 var game = {
   B: 0.56,//调整系数
+  isFirstPlay:false,
   tu: new Array(),
   cuyu: new Array(),
   img:{
@@ -59,8 +64,8 @@ var game = {
     this.people.img = new Image();
     //this.people.img.src = renURL
     this.people.img.src = './img/ren.png'
-    this.people.width = 186*0.8;
-    this.people.height = 190*0.8;
+    this.people.width = 186*0.6;
+    this.people.height = 190*0.6;
     this.people.x= 0;
     this.people.y = this.canvas.canvasH-this.people.height;
 
@@ -83,7 +88,11 @@ var game = {
   start: function (isFirst){
     var self = this;
     self.init();
-    if(!isFirst) self.reset();
+    if(isFirst == false) {
+      self.reset()
+    } else {
+      self.isFirstPlay = true
+    };
     interval = setInterval(function(){
       ctx.clearRect(0,0,self.canvas.canvasW,self.canvas.canvasH);//矩形 清空画布
       ctx.drawImage(self.img.bg, 0, 0, self.canvas.canvasW, self.canvas.canvasH);//背景图固定
@@ -154,9 +163,11 @@ var game = {
             }
           }
           var k=Math.round(Math.random()*self.coin.zl);//100随机选择积极消极
-          if(k < 60){//90
+          if(k < 70){//90
+            //self.tu[j].image.src='http://browser.umeweb.com/v6/ume/game/coingame/images/1.png';
             self.tu[j].q = 1;
           } else {
+            //self.tu[j].image.src='http://browser.umeweb.com/v6/ume/game/coingame/images/3.png';
             self.tu[j].q = 2;
           }
           //设定金币初始位置
@@ -169,18 +180,17 @@ var game = {
       self.coin.shi++;//总计数
     }
     function object(){
-      this.x = 0;
-      this.y = 0;
-      this.l = 11;
-      this.width = 50;
-      this.height = 55;
+      this.x=0;
+      this.y=0;
+      this.l=11;
+      this.image=new Image();
     }
   },
   jianche: function(a,b) {
     //console.info(this)
     var c=a.x-b.x;
     var d=a.y-b.y;
-    if(c < b.width && c>-a.width  && d<b.height && d>-a.height){/*二者是否相撞*/
+    if(c < b.image.width && c>-a.width  && d<b.image.height && d>-a.height){/*二者是否相撞*/
       return true;
     }else{
       return false;
@@ -248,13 +258,28 @@ var game = {
   },
   stop:function(){//停止游戏
     clearInterval(interval);
+    var self = this;
+    setTimeout(function(){
+      popUpEnd(self.coin.fs);
+      self.reset();
+    },300)
+
   }
 }
-window.onload = function(){
-  popUpStart();
-  //
-}
 
+window.onload = function(){
+
+  var objId = '';
+  try {
+    objId = window.App.getObjectId();
+  } catch (e) {
+    debug_print("201:\r\n" + e);
+    objId = 'd9fb4fbaa4b9ce1852ef8a2c';
+  }
+  checkUid(objId,function(isPlayToday){
+    popUpStart(isPlayToday);
+  });
+}
 /**该方法用来绘制一个有填充色的圆角矩形
  * 封装矩形圆角
  *@param cxt:canvas的上下文环境
@@ -315,7 +340,7 @@ function drawRoundRectPath(cxt, width, height, radius) {
   ctx.stroke();*/
 }
 /*开始游戏弹框*/
-function popUpStart(){
+function popUpStart(isPlayToday){
   game.init();
   var txt='快来领取专属于你的辛苦指数吧30秒内，作为劳动人民的你想做什么就接住这项任务', h='10.11111';
   var html = '<div class="notice">'
@@ -326,6 +351,8 @@ function popUpStart(){
     title: "", //设置标题
     content: html //设置内容
   });
+  var popMask = document.getElementById("popMask");
+  popMask.removeEventListener('click', popup.closeDiv,false)
   $(".popUp_c").css({
     "background-color":"#be2a2a",
     "boeder-radius":'.8rem'
@@ -351,14 +378,15 @@ function popUpStart(){
   });
   $(".startbtn").click(function(){
     deletePop();
-    game.start(true);
+    $("#f").show();
+    $("#r").show();
+    game.start(isPlayToday);
   })
 }
-/*结束游戏弹框*/
 function popUpEnd(percent){
   var txt = '',
     h='12.66666';
-  if( (percent>= 1) && (percent<=20) ){
+  if( percent<=20 ){
     txt = '总觉得自己的性格不适合上班，只适合领工资';
   } else if( (percent>= 21 ) && (percent<=40)){
     txt = '成长就是你哪怕难过的快挂了还依然向前';
@@ -369,8 +397,8 @@ function popUpEnd(percent){
   } else {
     txt = '人生累，不拼不博人生白活，不苦不累人生无味'
   }
-  var yi = percent>= 30? '已':'';
-  var html = '<img class="glory-big" src="./img/glory_big.png" alt="">'
+  var yi = game.isFirstPlay == true ? '':'已';
+  var html = '<button class="glory-big"></button>'
     +'<div class="notice3">'+yi+'获得一枚光荣勋章<br>今年五一的辛苦指数：<span style="color:rgba(255,234,90,1)">'
     + percent + '%</span></div>'
     +'<div class="notice">'+ txt+'</div>'
@@ -383,6 +411,8 @@ function popUpEnd(percent){
     title: "", //设置标题
     content: html //设置内容
   });
+  var popMask = document.getElementById("popMask");
+  popMask.removeEventListener('click', popup.closeDiv,false)
   $(".popUp_c").css({
     "background-color":"#be2a2a",
     "boeder-radius":'.8rem'
@@ -415,11 +445,39 @@ function popUpEnd(percent){
   });
   $(".sharebtn").click(function(){
     deletePop();
+    _czc.push(['_trackEvent', '收徒活动', 'click', '朋友圈邀请', '', '']);
+    window.App.shareToWeChatFriends(window.location.href, 0);
   })
   $(".endbtn").click(function(){
     deletePop();
     game.start(false);
   })
+}
+
+function checkUid(objectId, callback) {
+
+  $.ajax({
+    type: 'GET',
+    url: "http://browser.umeweb.com/cn_ume_api/wy/api/check/" + objectId,
+    dataType: 'json',
+    cache: false,
+    xhrFields: {
+      withCredentials: true
+    },
+    success: function(data) {
+      debug_print("sucess:" + JSON.stringify(data));
+      var isPlayToday = false ;
+      if(data.Code == 0){
+        debug_print(data.User.lastplaytime);
+        isPlayToday = isTodayToDot(data.User.lastplaytime);
+      }
+      callback(isPlayToday);
+    },
+    error: function(xhr, type) {
+      debug_print(type);
+      callback(false);
+    }
+  });
 }
 
 

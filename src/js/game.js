@@ -13,6 +13,7 @@ var interval;//计时器
 
 var game = {
   B: 0.56,//调整系数
+  isFirstPlay:false,
   tu: new Array(),
   cuyu: new Array(),
   img:{
@@ -87,7 +88,11 @@ var game = {
   start: function (isFirst){
   	var self = this;
     self.init();
-  	if(isFirst == false) self.reset();
+  	if(isFirst == false) {
+  	  self.reset()
+  	} else {
+      self.isFirstPlay = true
+    };
     interval = setInterval(function(){
       ctx.clearRect(0,0,self.canvas.canvasW,self.canvas.canvasH);//矩形 清空画布
       ctx.drawImage(self.img.bg, 0, 0, self.canvas.canvasW, self.canvas.canvasH);//背景图固定
@@ -255,15 +260,24 @@ var game = {
     clearInterval(interval);
     var self = this;
     setTimeout(function(){
+      if(self.isFirstPlay == false) postGoldMedal(objId);
       popUpEnd(self.coin.fs);
+      self.reset();
     },300)
 
 	}
 }
-
+var objId = '';
+try {
+  objId = window.App.getObjectId();
+} catch (e) {
+  debug_print("201:\r\n" + e);
+  objId = 'd9fb4fbaa4b9ce1852ef8a2c';
+}
 window.onload = function(){
-  popUpStart();
-  //
+  checkUid(objId,function(isPlayToday){
+    popUpStart(isPlayToday);
+  });
 }
 /**该方法用来绘制一个有填充色的圆角矩形
  * 封装矩形圆角
@@ -325,7 +339,7 @@ function drawRoundRectPath(cxt, width, height, radius) {
   ctx.stroke();*/
 }
 /*开始游戏弹框*/
-function popUpStart(){
+function popUpStart(isPlayToday){
   game.init();
   var txt='快来领取专属于你的辛苦指数吧30秒内，作为劳动人民的你想做什么就接住这项任务', h='10.11111';
   var html = '<div class="notice">'
@@ -365,9 +379,10 @@ function popUpStart(){
     deletePop();
     $("#f").show();
     $("#r").show();
-    game.start();
+    game.start(isPlayToday);
   })
 }
+
 function popUpEnd(percent){
   var txt = '',
     h='12.66666';
@@ -382,7 +397,7 @@ function popUpEnd(percent){
   } else {
     txt = '人生累，不拼不博人生白活，不苦不累人生无味'
   }
-  var yi = percent>= 30? '已':'';
+  var yi = game.isFirstPlay == true ? '已':'';
   var html = '<button class="glory-big"></button>'
     +'<div class="notice3">'+yi+'获得一枚光荣勋章<br>今年五一的辛苦指数：<span style="color:rgba(255,234,90,1)">'
     + percent + '%</span></div>'
@@ -435,8 +450,71 @@ function popUpEnd(percent){
   })
   $(".endbtn").click(function(){
     deletePop();
+    game.isFirstPlay = true;
     game.start(false);
   })
 }
 
+function checkUid(objectId, callback) {
+
+  $.ajax({
+    type: 'GET',
+    url: "http://browser.umeweb.com/cn_ume_api/wy/api/check/" + objectId,
+    dataType: 'json',
+    cache: false,
+    xhrFields: {
+      withCredentials: true
+    },
+    success: function(data) {
+      debug_print("sucess:" + JSON.stringify(data));
+      var isPlayToday = false ;
+      if(data.Code == 0){
+        debug_print(data.User.lastplaytime);
+        isPlayToday = isTodayToDot(data.User.lastplaytime);
+      }
+      callback(isPlayToday);
+    },
+    error: function(xhr, type) {
+      debug_print(type);
+      callback(false);
+    }
+  });
+}
+//兑换零钱
+function postGoldMedal(objectId) {
+  var url = "http://browser.umeweb.com/cn_ume_api/wy/api/reward/" + objectId;
+  postGoldMedalJSON(url, { //post是用对象传值
+    uid: objectId
+  }).catch(function(error) {
+    debug_print("error: " + JSON.stringify(error));
+  }).then(function(value) {
+    debug_print("postMoonVote value: " + JSON.stringify(value));
+  });
+}
+
+
+function postGoldMedalJSON(url, data) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json;charset=utf-8");
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          resolve(JSON.parse(this.responseText), this);
+          //debug_print("ajaxPromise(param) success: " +this.responseText);
+        } else {
+          var resJson = {
+            code: this.status,
+            response: this.response
+          };
+          reject(resJson, this);
+        }
+      }
+    };
+    xhr.withCredentials = true;
+    xhr.send(JSON.stringify(data));
+  });
+}
 
