@@ -126,8 +126,8 @@ function popUpCashText(objectId, money){
   var txt='', h='5.66667';
   if( money > 0 ){
     var d = new Date();
-    //var p = new Date("2019-05-24 23:59:59");
-    var p = new Date("2019-04-24 23:59:59");
+    var p = new Date("2019-05-24 23:59:59");
+    //var p = new Date("2019-04-24 23:59:59");
     if(d<p){
       txt='您好，可快速提现金额的提现时间为5月25日 0:00-5月31日 23:59开通，请于规定时间内进行快速提现哦';
       h= '7.11111';
