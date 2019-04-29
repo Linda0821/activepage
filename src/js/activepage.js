@@ -1,5 +1,6 @@
 var num = 0;
 var isShareClick = false ;//是否登录标记
+
 /*获取window.App.getObjectId*/
 var objId = '';
 try {
@@ -121,7 +122,7 @@ function checkUid(objectId, callback) {
   });
 }
 function popUpCashText(objectId, money){
-  money = 100 //测试
+  /*money = 100*/ //测试
   var txt='', h='5.66667';
   if( money > 0 ){
     var d = new Date();

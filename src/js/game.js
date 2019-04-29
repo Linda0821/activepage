@@ -1,4 +1,3 @@
-var isLoginTrue = false;//判断登录参数
 
 var canvasObj = $('#canvas');//$ canvas对象
 var ca = document.getElementById("canvas"); //js canvas对象;
@@ -75,24 +74,21 @@ var game = {
     console.info(this.people.y);
     console.info(this.canvas.canvasH);
 
-  },
-  reset: function(){
+    /*时间*/
     this.time.remainTime = this.time.gameTime;
     this.time.beginTime = new Date();
 
+    /*金币数*/
     this.coin.fs = 0;
     this.coin.fc = 0;
     this.coin.sc = 0;
     this.coin.rc = 0;
+
   },
   start: function (isFirst){
   	var self = this;
     self.init();
-  	if(isFirst == false) {
-  	  self.reset()
-  	} else {
-      self.isFirstPlay = true
-    };
+  	if(isFirst == true)  self.isFirstPlay = true ;
     interval = setInterval(function(){
       ctx.clearRect(0,0,self.canvas.canvasW,self.canvas.canvasH);//矩形 清空画布
       ctx.drawImage(self.img.bg, 0, 0, self.canvas.canvasW, self.canvas.canvasH);//背景图固定
@@ -202,18 +198,6 @@ var game = {
     document.getElementById('r').innerHTML = this.time.remainTime+"s";//界面显示剩余时间
     if(this.time.remainTime<=0) {
       this.stop();
-      //btnClickFn();
-      if(isLoginTrue){
-        var  objId ='';
-        try {
-          objId = window.App.getObjectId();
-        } catch (e) {
-          debug_print("201:\r\n" + e);
-          objId = "7b1b44708b0f536863bdc399";
-        }
-        postCoin(objId, fs);
-      }
-
     }
   },
   addListener:function(element,e,fn){
@@ -264,7 +248,6 @@ var game = {
       popUpEnd(self.coin.fs);
       self.reset();
     },300)
-
 	}
 }
 var objId = '';
@@ -340,7 +323,6 @@ function drawRoundRectPath(cxt, width, height, radius) {
 }
 /*开始游戏弹框*/
 function popUpStart(isPlayToday){
-  game.init();
   var txt='快来领取专属于你的辛苦指数吧30秒内，作为劳动人民的你想做什么就接住这项任务', h='10.11111';
   var html = '<div class="notice">'
     + txt+'</div><div class="notice2">参与即可获得一枚光荣勋章</div>'+'<button class="startbtn"></button>'
