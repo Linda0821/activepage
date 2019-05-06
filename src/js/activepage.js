@@ -397,6 +397,9 @@ function popUpCashSure(objectId, money){
         debug_print("transfer_apply value: " + JSON.stringify(value));
         if (value.Code == 0) {
           popUpDescription('提现成功！');
+          checkUid(objId, function(ischeck, data){
+            pageClickFn(objId,ischeck,data);
+          });
         } else if(value.Code == "E005"){
           popUpDescription('提现失败！');
         } else {
