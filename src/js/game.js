@@ -428,7 +428,7 @@ function popUpEnd(percent){
   $(".sharebtn").click(function(){
     deletePop();
     _czc.push(['_trackEvent', '收徒活动', 'click', '朋友圈邀请', '', '']);
-    window.App.shareToWeChatFriends(window.location.href, 0);
+    window.App.shareToWeChatFriends("http://browser.umeweb.com/v6/ume/game/labourgame/active.html", 0);
   })
   $(".endbtn").click(function(){
     deletePop();

@@ -289,6 +289,9 @@ function postMedal(objectId, num ,type) {
       "color":"#787878",
       "line-height": "1.2rem"
     });
+    checkUid(objId, function(ischeck, data){
+      pageClickFn(objId,ischeck,data);
+    });
   });
 }
 
