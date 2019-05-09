@@ -30,7 +30,7 @@ button {
     height:1rem;
     background:transparent url("../img/how.png") no-repeat center/cover !important;
     top:.18889rem;
-    right:.088889rem;
+    right:0rem;
 }
 .btn2{
     width:10.86667rem;
@@ -55,6 +55,13 @@ button {
     top: 18.88889rem;
     background:transparent url("../img/palygame.png") no-repeat center/cover !important;
     right:1.54444rem;
+}
+.btn5{
+    width: 3.1111rem;
+    height: 1rem;
+    top: .18889rem;
+    background:transparent url("../img/btnleft.png") no-repeat center/cover !important;
+    left:0;
 }
 .btn_s{
     width: 104px;

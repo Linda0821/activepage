@@ -75,6 +75,14 @@ function pageClickFn(objectId, isLogin, data){
       getToLogin()
     }
   })
+  $(".btn5").unbind('click').click(function () {
+    _czc.push(['_trackEvent', '五一活动', 'click', '提现记录', '', '']);
+    if (isLogin == true) {
+      window.location.href = 'http://browser.umeweb.com/v6/ume/www/cashrate.html?page=labourgame';
+    } else {
+      getToLogin()
+    }
+  })
   $(".num-1").unbind('click').click(function () {
     if (isLogin == true) {
       popUpExchange(objectId, data);
@@ -126,7 +134,7 @@ function popUpCashText(objectId, money){
   var txt='', h='5.66667';
   if( money > 0 ){
     var d = new Date();
-    var p = new Date("2019-05-24 23:59:59");
+    var p = new Date("2019-05-08 23:59:59");
     //var p = new Date("2019-04-24 23:59:59");
     if(d<p){
       txt='您好，可快速提现金额的提现时间为5月25日 0:00-5月31日 23:59开通，请于规定时间内进行快速提现哦';
