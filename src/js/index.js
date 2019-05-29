@@ -1,8 +1,26 @@
+var click = false,
+  continuePlayNum = 10 ,
+  playNum = 0,
+  objectedId = '';
+
+/*奖品情况*/
+var coins = {
+  6:300,
+  4:888,
+  1:5000
+};
+
+/*时间限定*/
+var loginTime = new Date("2018-12-21 00:00:00");//定义新朋友注册时间
+var startTime = new Date("2018-12-21 00:00:00").getTime();
+var endTime = new Date("2019-03-15 23:59:59").getTime();
+
+/*抽奖对象*/
 var lottery = {
   index: -1,    //当前转动到哪个位置，起点位置
   count: 0,    //总共有多少个位置
   timer: 0,    //setTimeout的ID，用clearTimeout清除
-  speed: 20,    //初始转动速度
+  speed: 100,    //初始转动速度
   times: 0,    //转动次数
   cycle: 50,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
   prize: -1,    //中奖位置
@@ -13,8 +31,8 @@ var lottery = {
       this.obj = $lottery;
       this.count = $units.length;
       $lottery.find(".lottery-unit-" + this.index).addClass("active");
+      $lottery.find(".start span").text(continuePlayNum);
     }
-    ;
   },
   roll: function () {
     var index = this.index;
@@ -25,9 +43,46 @@ var lottery = {
     if (index > count - 1) {
       index = 0;
     }
-    ;
     $(lottery).find(".lottery-unit-" + index).addClass("active");
     this.index = index;
+    return false;
+  },
+  start: function(){
+    var self = lottery;
+    self.times += 1;
+    self.roll();//转动过程调用的是lottery的roll方法，这里是第一次调用初始化
+    if (self.times > self.cycle + 10 && self.prize == self.index) {
+      clearTimeout(self.timer);
+      gameOverFn(self.prize);
+      self.prize = -1;
+      self.times = 0;
+      click = false;
+    } else {
+      if (self.times < self.cycle) {
+        self.speed -= 10;
+      } else if (self.times == self.cycle) {
+        var random = Math.random() * 100;
+        var index = parseInt(random) | 0;//中奖物品通过一个随机数生成
+        debug_print("random: "+random+" index: "+index)
+        if (index === 0) {
+          self.prize = 1;
+        } else if (index > 0 && index <= 5) {
+          self.prize = 4;
+        } else {
+          self.prize = 6;
+        }
+      } else {
+        if (self.times > self.cycle + 10 && ((self.prize == 0 && self.index == 7) || self.prize == self.index + 1)) {
+          self.speed += 110;
+        } else {
+          self.speed += 20;
+        }
+      }
+      if (self.speed < 40) {
+        self.speed = 40;
+      }
+      self.timer = setTimeout(self.start, self.speed);//循环调用
+    }
     return false;
   },
   stop: function (index) {
@@ -36,81 +91,25 @@ var lottery = {
   }
 };
 
-function roll() {
-  lottery.times += 1;
-  lottery.roll();//转动过程调用的是lottery的roll方法，这里是第一次调用初始化
-  if (lottery.times > lottery.cycle + 10 && lottery.prize == lottery.index) {
-    clearTimeout(lottery.timer);
-    gameOverFn(lottery.prize);
-    lottery.prize = -1;
-    lottery.times = 0;
-    click = false;
-
-  } else {
-    if (lottery.times < lottery.cycle) {
-      lottery.speed -= 10;
-    } else if (lottery.times == lottery.cycle) {
-      //var index = Math.random()*(lottery.count)|0;//中奖物品通过一个随机数生成
-      var random = Math.random() * 100;
-      console.info(random)
-      var index = parseInt(random) | 0;//中奖物品通过一个随机数生成
-      console.info(index)
-      if (index === 0) {
-        lottery.prize = 7;
-      } else if (index > 0 && index <= 5) {
-        lottery.prize = 5;
-      } else {
-        lottery.prize = 3;
-      }
-    } else {
-      if (lottery.times > lottery.cycle + 10 && ((lottery.prize == 0 && lottery.index == 7) || lottery.prize == lottery.index + 1)) {
-        lottery.speed += 110;
-      } else {
-        lottery.speed += 20;
-      }
-    }
-    if (lottery.speed < 40) {
-      lottery.speed = 40;
-    }
-    ;
-    //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
-    lottery.timer = setTimeout(roll, lottery.speed);//循环调用
-  }
-  return false;
-}
-function gameOverFn(prize){
-  //显示抽奖次数
-  var num = parseInt(prize);
-  continuePlayNum--;
-  $(".start span").text(continuePlayNum);
-  var coins = {
-    3:300,
-    5:888,
-    7:2000
-  };
-  postCoin(objectedId, coins[num])
-
-}
-var click = false,
-  continuePlayNum = 0 ,
-  playNum = 0,
-  objectedId = '';
-
-var loginTime = new Date("2018-12-21 00:00:00");//定义新朋友注册时间
-var startTime = new Date("2018-12-21 00:00:00").getTime();
-var endTime = new Date("2019-03-15 23:59:59").getTime();
-
 window.onload = function () {
+  /*初始化抽奖转盘*/
   lottery.init('lottery');
-  jishuFn();
   initLoggedIn();
 }
+
+/*滚动影藏按钮*/
+$(window).scroll(function(){
+  var min_height = 40;
+  var s =$(window).scrollTop();
+  if(s < min_height){
+    $("section.btn").show()
+  }else{
+    $("section.btn").hide()
+  }
+});
+
 /**
- * 1.判断是否登录
- * 2.未登录 点击跳转新老用户都跳转登录
- * 3.登录了获取到信息，判断是新用户还是老用户
- * 4.新用户,活动期间收徒数+1-接口游戏数；提示，您已经登录，可以抽奖了
- * 5.老用户，活动期间收徒数-接口游戏数 可以跳转收徒页面
+ * 判断是否登录
  * */
 function initLoggedIn() {
   try {
@@ -125,19 +124,52 @@ function initLoggedIn() {
 
     } else if (isLoggedIn == -1) {
       debug_print("未登录");
-      linkFn();
+      linkFn(false);
     }
   } catch (e) {
     debug_print("isLoggedIn " + e);
-    //linkFn();
-    setTimeout(function () {
+    /*悬浮按钮点击*/
+    linkFn(true);
+    /*开始抽奖点击*/
+    $("#lottery a").click(function () {
+      _czc.push(['_trackEvent', '端午活动', 'click', '我要抽奖', '', '']);
+      if (click || continuePlayNum <= 0) {//click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
+        return false;
+      } else {
+        lottery.speed =100;//初始化速度
+        lottery.start();    //转圈过程不响应click事件，会将click置为false
+        click = true; //一次抽奖完成后，设置click为true，可继续抽奖
+      }
+    });
+    /*setTimeout(function () {
       pcInitUmeUser(function () {
         getGameInfo()
       });
-    }, 20);
+    }, 20);*/
   }
 }
-
+/*悬浮按钮点击函数*/
+function linkFn(isLogin){
+  $("#shareBtn").click(function () {
+    _czc.push(['_trackEvent', '端午活动', 'click', '分享好友', '', '']);
+    if(!isLogin){
+      getToLogin()
+    }  else {
+      debug_print("shareBtn click!");
+      window.location.href = "http://browser.umeweb.com/v6/ume/active/20180621/index.html";
+    }
+  });
+  $("#registerBtn").click(function () {
+    _czc.push(['_trackEvent', '端午活动', 'click', '吃粽子领金币', '', '']);
+    if(!isLogin){
+      getToLogin()
+    } else {
+      debug_print("registerBtn click!");
+      window.location.href = "http://browser.umeweb.com/v6/ume/wealth.html";
+    }
+  });
+}
+/*获取用户信息*/
 function getGameInfo(){
   UMeUser.getUMeUser().then(function (user) {
     debug_print("user: " + JSON.stringify(user));
@@ -193,38 +225,6 @@ function getGameInfo(){
 
   }).catch(function (e) {
     debug_print("user error: " + e);
-  });
-}
-function linkFn(time){
-  $("#newFriend").click(function () {
-    _czc.push(['_trackEvent', '双蛋活动', 'click', '新朋友，首次注册即可参与>>>', '', '']);
-    if(!time){
-      try {
-        window.App.login();
-      } catch (e) {
-        console.info("window.App.login()" + e);
-      }
-    } else if(time >= loginTime){
-      console.info("新朋友");
-      window.location.href = "http://browser.umeweb.com/v6/ume/wealth.html";
-    } else {
-      debug_print("newFriend click!");
-    }
-  });
-  $("#oldFriend").click(function () {
-    _czc.push(['_trackEvent', '双蛋活动', 'click', '老朋友, 邀请一个朋友（进贡>200金币)=1次机会，这就去收徒>>>', '', '']);
-    if(!time){
-      try {
-        window.App.login();
-      } catch (e) {
-        console.info("window.App.login()" + e);
-      }
-    } else if (time && time < loginTime){
-      console.info("老朋友");
-      window.location.href = "http://browser.umeweb.com/v6/ume/active/20180621/index.html";
-    } else {
-      debug_print("oldFriend click!");
-    }
   });
 }
 /*验证objected id*/
@@ -284,6 +284,15 @@ function getPlayNum(objectId, canPlayNum, time) {
       console.info(type);
     }
   });
+}
+function gameOverFn(prize){
+  //显示抽奖次数
+  var num = parseInt(prize);
+  continuePlayNum--;
+  $(".start span").text(continuePlayNum);
+  //postCoin(objectedId, coins[num])
+  gameOverPopup(coins[num])
+
 }
 /*
  * E001：uid错误
@@ -351,22 +360,6 @@ function postJSON(url, data) {
     xhr.send(JSON.stringify(data));
   });
 }
-function jishuFn(){
-  var d = new Date();
-  var p = new Date("2019-02-16 00:00:00");
-  var number_init= (d >= p) ? 3121+parseInt((d-p)/60000)*9:3121;
-  console.info("count:"+number_init)
-  $(".join-people-btn span").text(number_init);
-  var Timer =setInterval(function(){
-    number_init= number_init+9;
-    $(".join-people-btn span").text(number_init);
-    //console.info(number_init)
-  },60000)
-  if( d.getTime() > endTime ){
-    window.clearInterval(Timer);
-  }
-}
-
 /*未登录情况下的弹框*/
 function gameOverPopup(coin) {
   debug_print("抽奖结果：" + coin);
@@ -422,15 +415,5 @@ function gameOverPopup(coin) {
   $("#pop_game button").click(function(){
     window.location.href = "http://browser.umeweb.com/v6/ume/wealth.html";
   });
-
 }
 
-$(window).scroll(function(){
-  var min_height = 40;
-  var s =$(window).scrollTop();
-  if(s < min_height){
-    $("section.btn").show()
-  }else{
-    $("section.btn").hide()
-  }
-});
