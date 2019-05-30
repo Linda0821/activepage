@@ -1,0 +1,128 @@
+*{
+    padding:0;
+    margin:0;
+}
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+html{
+    font-size: 22.5px;
+}
+#box{
+    width:100%;
+    height:100%;
+    position:relative;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #e7cea8;
+    /*background: #e7cea8 url("../img/bj.png") no-repeat center/cover !important;*/
+}
+#f{
+    display: block;
+    font-size:14px;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    color:#fff;
+    position: absolute;
+    top: 2.2%;
+    left: 15px;
+    padding-left:14px;
+    text-align:center;
+    background: transparent url("../img/btn1.png") no-repeat center/cover !important;
+}
+#r{
+    display: block;
+    font-size:16px;
+    width: 110px;
+    height: 30px;
+    line-height: 30px;
+    color:#fff;
+    position:absolute;
+    top:2.2%;
+    right: 15px;
+    text-align:center;
+    background: transparent url("../img/btn2.png") no-repeat center/cover !important;
+}
+#m{
+    display: none;
+    font-size:11px;
+    width: 40px;
+    height: 20px;
+    line-height: 20px;
+    color:#fff;
+    position:absolute;
+    top:1.2%;
+    right: 2%;
+    text-align:center;
+    background-color:rgba(0,0,0,0.3);
+    border-radius:10px;
+}
+button {
+    background-color: transparent;
+    border:none;
+    outline:none;
+}
+.startbtn{
+    width: 104px;
+    font-size: 0.71111rem;
+    font-weight: 600;
+    color: #e8600c;
+    height: 36px;
+    line-height: 36px;
+    background: transparent url('../img/start.png') no-repeat center/cover !important;
+    position: absolute;
+    left:3.2rem;
+}
+.sharebtn{
+    width: 104px;
+    height: 36px;
+    line-height: 36px;
+    background: transparent url('../img/share.png') no-repeat center/cover !important;
+    position: absolute;
+    left:.7rem;
+}
+.endbtn{
+    width: 104px;
+    height: 36px;
+    line-height: 36px;
+    background: transparent url('../img/agagin.png') no-repeat center/cover !important;
+    position: absolute;
+    right:.7rem;
+}
+.glory-big{
+    width: 52px;
+    height: 68px;
+    line-height: 68px;
+    background: transparent url('../img/glory_big.png') no-repeat center/cover !important;
+}
+
+/*弹框*/
+.popMask {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34,34,35,0.7);
+    z-index: 100;
+}
+.popUp {
+    position: fixed;
+    width: 100%;
+    min-height: 5.778rem;
+    /* border: 1px solid #f2f5f7; */
+    left: 50%;
+    top: 50%;
+    margin-left: -6.6667rem;
+    margin-top: -6.6667rem;
+    z-index: 101;
+    /* background: #fff; */
+    border-radius: 0.1778rem;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    opacity: 0;
+}
