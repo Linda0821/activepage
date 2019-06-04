@@ -18,7 +18,7 @@ html{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #e7cea8;
+    background: #dfd5a5;
     /*background: #e7cea8 url("../img/bj.png") no-repeat center/cover !important;*/
 }
 #f{
@@ -68,39 +68,80 @@ button {
     outline:none;
 }
 .startbtn{
-    width: 104px;
+    width: 4.44444rem;
     font-size: 0.71111rem;
-    font-weight: 600;
-    color: #e8600c;
+    font-weight: 400;
+    color: #fff;
     height: 36px;
     line-height: 36px;
-    background: transparent url('../img/start.png') no-repeat center/cover !important;
+    background-color: #3a7c36;
+    border-radius: .4444rem;
     position: absolute;
-    left:3.2rem;
+    left:4.6rem;
 }
 .sharebtn{
-    width: 104px;
+    width: 4.44444rem;
+    font-size: 0.71111rem;
+    font-weight: 400;
+    color: #fff;
     height: 36px;
     line-height: 36px;
-    background: transparent url('../img/share.png') no-repeat center/cover !important;
+    background-color: #8fb84f;
+    border-radius: .4444rem;
     position: absolute;
-    left:.7rem;
+    left:1.4rem;
+}
+.gotologin{
+    width: 4.44444rem;
+    font-size: 0.71111rem;
+    font-weight: 400;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    background-color: #8fb84f;
+    border-radius: .4444rem;
+    position: absolute;
+    left:1.4rem;
 }
 .endbtn{
-    width: 104px;
+    width: 4.44444rem;
+    font-size: 0.71111rem;
+    font-weight: 400;
+    color: #fff;
     height: 36px;
     line-height: 36px;
-    background: transparent url('../img/agagin.png') no-repeat center/cover !important;
+    background-color: #3a7c36;
+    border-radius: .4444rem;
     position: absolute;
-    right:.7rem;
+    right:1.4rem;
 }
-.glory-big{
-    width: 52px;
-    height: 68px;
-    line-height: 68px;
-    background: transparent url('../img/glory_big.png') no-repeat center/cover !important;
+.notice1 p{
+    position:relative;
 }
-
+.notice1 span.img1 {
+    content: "";
+    background: url("../img/img1.png") no-repeat .4rem 0/.8rem .8rem;
+    z-index: 1;
+    width: .8rem;
+    height: .8rem;
+    padding-left: 1.2rem;
+}
+.notice1 span.img2 {
+    display:inline-block;
+    background: url("../img/img2.png") no-repeat .4rem 0/.8rem .8rem;
+    z-index: 1;
+    width: .8rem;
+    height: .8rem;
+    padding-left: .8rem;
+}
+.notice1 span.img3 {
+    display:inline-block;
+    background: url("../img/img3.png") no-repeat .2rem 0/.8rem .8rem;
+    z-index: 1;
+    width: .8rem;
+    height: .8rem;
+    padding-left: .6rem;
+}
 /*弹框*/
 .popMask {
     position: fixed;
