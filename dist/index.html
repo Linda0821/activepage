@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, height=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1"/>
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+        <title>金币庄园</title>
+    <link rel="stylesheet" href="http://browser.umeweb.com/v6/ume/css/common/popup.css">
+
+    <style>
+        #cnzz_stat_icon_1273327993{
+            display: none;
+        }
+        #cnzz_stat_icon_1273327993 img {
+            width:0;
+        }
+        @-moz-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-o-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+
+        }
+        @-moz-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+        @-ms-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+        @keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+    </style>  
+<link href="./css/main.6e9cc0.css" rel="stylesheet"></head>
+<body>
+<div class="container">
+    <div class="content" style="height:300px;">
+        <!-- 太阳光 -->
+        <div class="sunlight">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- 山峰 -->
+        <div class="peak-box">
+            <div class="peak-1"></div>
+            <div class="peak-2"></div>
+            <div class="peak-3"></div>
+            <div class="peak-4"></div>
+            <div class="peak-5"></div>
+            <div class="peak-6"></div>
+            <div class="peak-7">
+                <div class="peak-7-1"></div>
+                <div class="peak-7-2"></div>
+            </div>
+            <div class="peak-8"></div>
+            <div class="peak-9"></div>
+            <!-- 风车塔 -->
+            <div class="windmill">
+                <div class="windmill-1"></div>
+                <div class="windmill-2"></div>
+                <div class="windmill-3"></div>
+                <div class="windmill-4"></div>
+                <div class="windmill-5">
+                    <div class="windmill-5-1"></div>
+                    <div class="windmill-5-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 白云 -->
+        <div class="clouds">
+            <div class="cloud x1"></div>
+            <div class="cloud x2"></div>
+           <!-- <div class="cloud x3"></div>-->
+        </div>
+
+        <!--大地-->
+        <div class="earth-1">
+            <!--添加树-->
+            <div class="tree-box tree-add" data-show="0">
+                <div class="tree-top"></div>
+                <div class="tree-btn"></div>
+                <div class="tree-bot"></div>
+            </div>
+            <!--小树-->
+            <div class="tree-box tree-s" data-show="0">
+                <div class="tree-top"></div>
+                <div class="tree-shadow"></div>
+            </div>
+            <!--长大一点的树-->
+            <div class="tree-box tree-m">
+
+            </div>
+            <!--长大了的树-->
+            <div class="tree-box tree-b" data-show="0">
+
+            </div>
+            <!--领取金币计时-->
+            <div class="time-count">
+                <i></i><span>00:00:00</span>后领取
+            </div>
+            <!--水滴按钮-->
+            <div class="water-btn">
+                <img src="./img/436aebe2.water_btn.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="water-wrap">
+        <div class="water water1" data-show="0" data-g="10g">
+        </div>   
+        <div class="water water2" data-show="0" data-g="10g">
+        </div>
+        <div class="water water3" data-show="0" data-g="10g">
+        </div>
+        <div class="water water4" data-show="0" data-g="50g">
+        </div>
+        <div class="coin" data-show="0" data-g="0">
+        </div>
+
+    </div>
+
+    <div class="coin-mine">
+        <i>我的金币数：</i><span>0</span>
+    </div>
+    <div class="part part-task">
+        <h1></h1>
+        <ul>
+            <li>1 每天<span data-id="0">登录</span>微米获得一次10g水滴</li>
+            <li>2 每天完成一次<span data-id="1">签到</span>获得一次10g水滴</li>
+            <li>3 每天完成<span data-id="2">首次阅读</span>任务获得一次10g水滴</li>
+            <li>4 邀请一名<span data-id="3">好友注册</span>微米浏览器获得50g水滴</li>
+        </ul>
+    </div>
+    <div class="part part-share">
+        <h1></h1>
+        <ul class="share">
+            <li data-share="WeChat"><img src="http://browser.umeweb.com/v6/ume/img/apprentice/weixin.png" alt=""></li>
+            <li data-share="qq"><img src="http://browser.umeweb.com/v6/ume/img/apprentice/qq.png" alt=""></li>
+            <li data-share="WeChatFriends"><img src="http://browser.umeweb.com/v6/ume/img/apprentice/pengyouquan.png" alt=""></li>
+        </ul>
+    </div>
+    <div class="part part-rule">
+        <h1></h1>
+        <ul>
+            <li>
+                1 所有微米登录用户都可以领1颗可以产金币的小树哟~
+            </li>
+            <li>
+                2 种树之后每天都会成长出最低90金币，记得
+                每天都要来收取哦~
+            </li>
+            <li>
+                3 水滴能让小树茁壮成长，记得每天领取并浇
+                水，拿到的金币数会翻倍哦~
+            </li>
+            <li>
+                4 收取的金币会直接发放到你的微米账户，可以
+                用于提现哟！
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="loader">
+    <div class="pic">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+
+</body>
+<script src="http://browser.umeweb.com/v6/ume/libs/jquery.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/droi-baas-min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/browser.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/ume.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/tool/vue.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/tool/axios.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/common/popup.js"></script>
+<script type="text/javascript" src="./js/main.ef83fe.js"></script>
+<script type="text/javascript">
+  var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " https://");
+  document.write(unescape("%3Cspan id='cnzz_stat_icon_1273327993'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273327993%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+  $('#cnzz_stat_icon_1273327993 img').css('width','0');
+</script>
+</html>
