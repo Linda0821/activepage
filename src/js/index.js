@@ -12,6 +12,9 @@ var data_ac = {
 };
 var isShareClick = false;
 var myCoin = 0;
+import img1_pop from '../img/img1_pop.png'
+import img2_pop from '../img/img2_pop.png'
+
 $(function () {
   // 定时器
   //定义3秒后隐藏loading
@@ -41,6 +44,7 @@ function IsLoginIn(){
     data_ac.User.coin = 20;
     data_ac.User.isFirstTime = false;
     renderFromData('', data_ac.User);
+    popUpGetTree('', data_ac.User)
     /*pcInitUmeUser(function(){
       getMyInfor();
     });*/
@@ -265,7 +269,6 @@ function countDown(times) {
       hour = Math.floor(times / (60 * 60 * 1000)) - (day * 24);
       minute = Math.floor(times / (60 * 1000)) - (day * 24 * 60) - (hour * 60);
       second = Math.floor(times / 1000) - (day * 24 * 60) - (hour * 60 * 60) - (minute * 60);
-      msecond = Math.floor(times) - (day * 24 * 60 * 60 * 1000) - (hour * 60 * 60 * 1000) - (minute * 60 * 1000) - (second * 1000);
     }
     if (day <= 9)
       day = '0' + day;
@@ -275,8 +278,6 @@ function countDown(times) {
       minute = '0' + minute;
     if (second <= 9)
       second = '0' + second;
-    if (msecond <= 9)
-      msecond = '0' + msecond;
     $(".time-count").find('span').text(hour+':'+minute+':'+second);
     times = times - 50;
   }, 50);
@@ -287,9 +288,9 @@ function countDown(times) {
 /*领树苗弹框*/
 function popUpGetTree(objectId, obj){
   var h='17.66666';
-  var html = '<div class="notice">金币庄园重金树 每天翻倍拿金币</div>'+
-    '<img class="img2_pop" src="./img/img2_pop.png" alt="">'+
-    '<img class="img1_pop" src="./img/img1_pop.png" alt="">'+
+  var html = '<div class="notice">金币庄园种金树 每天翻倍拿金币</div>'+
+    '<img class="img2_pop" src="'+img2_pop+'" alt="">'+
+    '<img class="img1_pop" src="'+img1_pop+'" alt="">'+
     '<div class="notice2">每天做任务赚水滴帮助种子成长；</div>'+
     '<div class="notice2">每天都有成熟的金币可以领取哟；</div>'+
     '<button class="startbtn">种一颗会赚钱的树</button>';
