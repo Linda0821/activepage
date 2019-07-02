@@ -44,7 +44,7 @@ function IsLoginIn(){
     data_ac.User.coin = 20;
     data_ac.User.isFirstTime = false;
     renderFromData('', data_ac.User);
-    popUpGetTree('', data_ac.User)
+    //popUpGetTree('', data_ac.User)
     /*pcInitUmeUser(function(){
       getMyInfor();
     });*/
