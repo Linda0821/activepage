@@ -33,7 +33,6 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
 
 .container {
     height: 100%;
-    max-width: 450px;
 }
 
 .content {
@@ -696,6 +695,14 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
     top:3px;
     left:0;
     right:0;
+    -webkit-transform-origin: bottom center;
+    -moz-transform-origin: bottom center;
+    -o-transform-origin: bottom center;
+    transform-origin: bottom center;
+    animation: swing1 6s .15s linear infinite;
+    -moz-animation: swing1 6s .15s linear infinite; /* Firefox */
+    -webkit-animation: swing1 6s .15s linear infinite; /* Safari and Chrome */
+    -o-animation: swing1 6s .15s linear infinite; /* Opera */
 }
 .tree-m {
     width:103px;
@@ -991,19 +998,74 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
     70%{-webkit-transform:scale(1.07,1.07);}
     100%{-webkit-transform:scale(1.1,1.1);}
 }
-@-webkit-keyframes swing1{
-    0% {
-        transform: translate3d(0, 0, 0)
+@-webkit-keyframes swing1 {
+    10% {
+        transform: rotate(15deg);
     }
-    50% {
-        transform: translate3d(0, 0, 4%)
+    20% {
+        transform: rotate(-10deg);
     }
-    100% {
-        transform: translate3d(0, 0, 0)
+    30% {
+        transform: rotate(5deg);
     }
-
+    40% {
+        transform: rotate(-5deg);
+    }
+    50%,100% {
+        transform: rotate(0deg);
+    }
 }
-
+@-moz-keyframes swing1 {
+    10% {
+        transform: rotate(15deg);
+    }
+    20% {
+        transform: rotate(-10deg);
+    }
+    30% {
+        transform: rotate(5deg);
+    }
+    40% {
+        transform: rotate(-5deg);
+    }
+    50%,100% {
+        transform: rotate(0deg);
+    }
+}
+@-o-keyframes swing1 {
+    10% {
+        transform: rotate(15deg);
+    }
+    20% {
+        transform: rotate(-10deg);
+    }
+    30% {
+        transform: rotate(5deg);
+    }
+    40% {
+        transform: rotate(-5deg);
+    }
+    50%,100% {
+        transform: rotate(0deg);
+    }
+}
+@keyframes swing1 {
+    10% {
+        transform: rotate(15deg);
+    }
+    20% {
+        transform: rotate(-10deg);
+    }
+    30% {
+        transform: rotate(5deg);
+    }
+    40% {
+        transform: rotate(-5deg);
+    }
+    50%,100% {
+        transform: rotate(0deg);
+    }
+}
 div.part{
     background-color: #EDE6D1;
     position:absolute;
