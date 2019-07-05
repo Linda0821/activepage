@@ -20,7 +20,7 @@ $(function () {
   //定义3秒后隐藏loading
   setInterval(function () {
     $(".loader").hide();
-  }, 1500);
+  }, 2000);
   IsLoginIn();
 });
 
@@ -133,18 +133,22 @@ function clickFn(objectId, isLogin, obj){
   debug_print("clickFn objectId: " + objectId);
   $(".coin-mine").unbind("click").click(function(){
     debug_print("clickFn coin-mine");
-    if(!isLogin){
-      getToLogin();
-    } else {
-      window.location.href = 'http://browser.umeweb.com/v6/ume/wealth.html';
-    }
-  })
+    window.location.href = 'http://browser.umeweb.com/v6/ume/wealth.html';
+  });
   $('.water-btn').unbind("click").click(function(){
     debug_print("clickFn water-btn");
     if(!isLogin){
       getToLogin();
     } else {
       window.location.href = 'http://browser.umeweb.com/v6/ume/www/task.html';
+    }
+  });
+  $(".recording-btn").unbind("click").click(function(){
+    debug_print("clickFn recording-btn");
+    if(!isLogin){
+      getToLogin();
+    } else {
+      window.location.href = 'recording.html';
     }
   });
   $('.part-task li span').unbind("click").click(function(){

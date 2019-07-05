@@ -5,22 +5,25 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require("extract-text-webpack-plugin")//css 分离
 //const extractCSS = new extractTextPlugin("css/[name].[hash:6].css")
 const extractCSS = new extractTextPlugin({
-  filename: 'css/[name].[md5:contenthash:hex:6].css',
+  filename: 'css/[name].min.css',
   allChunks: true
 });
 const extractSCSS = new extractTextPlugin({
-  filename: 'css/[name].[md5:contenthash:hex:6].css',
+  filename: 'css/[name].min.css',
   allChunks: true
 });
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css插件
 module.exports = {
   //注意这里是exports不是
-  entry: './src/index.js',
+  entry:{
+    main: './src/index.js',
+    recording:'./src/js/entry.js'
+  },
   output: {
     publicPath:"./",
     path: path.resolve(__dirname + "/dist"),
     //打包后的js文件存放的地方
-    filename: "js/[name].[hash:6].js" //打包后的js文件名
+    filename: "js/[name].min.js" //打包后的js文件名
   },
   plugins: [
     extractCSS,
@@ -29,7 +32,13 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),//new uglify(),//压缩js
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template:'src/index.html'
+      template:'src/index.html',
+      chunks: ["main"]
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'recording.html',
+      template:'src/recording.html',
+      chunks: ["recording"]
     })
   ],
   module: {

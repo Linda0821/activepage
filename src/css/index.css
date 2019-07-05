@@ -1124,11 +1124,21 @@ div.part ul li{
 }
 .water-btn{
     position: absolute;
-    top:40%;
+    top:-10%;
     right:15px;
+    z-index:10;
 }
 .water-btn img{
     width:40px;
+}
+.recording-btn {
+    position: absolute;
+    bottom:0;
+    right:10px;
+    z-index:10;
+}
+.recording-btn img{
+    width:46px;
 }
 .time-count{
     width:80px;
@@ -1167,6 +1177,7 @@ div.part ul li{
     vertical-align: middle;
     text-align: center;
     display: none;
+    z-index:24;
 }
 .coin-mine i{
     font-style: normal;
