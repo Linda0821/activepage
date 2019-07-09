@@ -28,7 +28,16 @@ module.exports = {
   plugins: [
     extractCSS,
     extractSCSS,
-    new OptimizeCssAssetsPlugin(),//压缩css
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: {
+        safe: true,
+        autoprefixer: false,
+        discardComments: { removeAll: true }
+      },
+      canPrint: true
+    }),//压缩css
     new webpack.optimize.UglifyJsPlugin(),//new uglify(),//压缩js
     new HtmlWebpackPlugin({
       filename: 'index.html',
