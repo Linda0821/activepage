@@ -5,7 +5,7 @@ $(function () {
     checkUid(objectId);
   } catch(e){
     debug_print(e);
-    checkUid('b9174d5e94ae1b645def2b2d');
+    checkUid('0f1c4e2aa4cd1a8a7977f324');//0f1c4e2aa4cd1a8a7977f324
   }
 
 });
@@ -61,6 +61,8 @@ function renderWaterRecording(data){
       case 2: text = data.logs[i].time+' 通过签到获得'+data.logs[i].reward+'g水滴'; break;
       case 3: text = data.logs[i].time+' 通过首次阅读获得'+data.logs[i].reward+'g水滴'; break;
       case 4: text = data.logs[i].time+' 通过邀请好友获得'+data.logs[i].reward+'g水滴'; break;
+      case 5: text = data.logs[i].time+' 通过周年庆抽奖活动获得'+data.logs[i].reward+'g水滴'; break;
+      case 6: text = data.logs[i].time+' 通过周年庆抽奖活动获得'+data.logs[i].reward+'g水滴'; break;
       case 99: text = data.logs[i].time+' 收获了'+data.logs[i].reward+'金币'; break;
       default: break;
     }

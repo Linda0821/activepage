@@ -4,8 +4,10 @@ var data_ac = {
     "water01": 0,
     "water02": 0,
     "water03": 0,
-    "water04": 0,
-    "watered": 11,
+    "water04": 1,
+    "water05": 0,
+    "water06": 0,
+    "watered": 2001,
     "coin": 0,
     "isFirstTime": true
   }
@@ -41,13 +43,13 @@ function IsLoginIn(){
     }
   } catch (e) {
     /*pc端*/
-    data_ac.User.coin = 20;
+    /*data_ac.User.coin = 20;
     data_ac.User.isFirstTime = false;
-    renderFromData('', data_ac.User);
+    renderFromData('', data_ac.User);*/
     //popUpGetTree('', data_ac.User)
-    /*pcInitUmeUser(function(){
+    pcInitUmeUser(function(){
       getMyInfor();
-    });*/
+    });
   }
 }
 function getMyInfor() {
@@ -99,6 +101,12 @@ function renderFromData(objectId,obj){
     if(obj.water04 === 0) {
       $(".water4").show().attr("data-show","1");
     }
+    if(obj.water05 === 0) {
+      $(".water5").show().attr("data-show","1");
+    }
+    if(obj.water06 === 0) {
+      $(".water6").show().attr("data-show","1");
+    }
     /*距离凌晨00:30时间*/
     var timeNow = new Date() / 1000;
     var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
@@ -109,9 +117,13 @@ function renderFromData(objectId,obj){
     /*控制水滴位置*/
     var len = $(".water[data-show$='1']").length;
     var arr  = [];
-    if(len === 4 ){
+    if(len === 6 ){
+      arr  = ['32%','38%','46%','53%','62%','70%'];
+    } else if(len === 5 ){
+      arr  = ['36%','42%','53%','62%','70%'];
+    } else if(len === 4 ){
       arr  = ['36%','42%','53%','66%'];
-    }else if(len === 3 ){
+    } else if(len === 3 ){
       arr  = ['36%','45%','55%'];
     } else if(len === 2 ){
       arr  = ['40%','55%'];
@@ -514,8 +526,8 @@ function getUmeUserInfo(callback) {
 
 /*pc端测试*/
 function pcInitUmeUser(callback) {
-  var token = " a606c600084bd2db",
-    objectId = "bf8e4b57af2ac0f6488f833e";
+  var token = "c9d8d60008ff9ede",
+    objectId = "0f1c4e2aa4cd1a8a7977f324";
   UMeUser.initUser(token, objectId).then(function (init_user) {
     debug_print("linitUser user: " + JSON.stringify(init_user));
     postDid(init_user.InviteCode)

@@ -54,6 +54,7 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
 }
 .re-list{
     width: 84%;
+    height:90%;
     margin: 0 8%;
     position:absolute;
     top:30px;
@@ -63,6 +64,5 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
 .re-list li{
     font-size: 13px;
     color:#2f2f2f;
-    height:26px;
     line-height: 26px;
 }
