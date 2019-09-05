@@ -1,0 +1,79 @@
+body {
+    margin: 0 auto;
+    width:100%;
+    min-height: 11.34rem;
+    background: #fdbf85 url(../img/bg.png) top no-repeat;
+    background-size: 100% auto;
+    box-sizing: border-box;
+    overflow: hidden;
+
+}
+.top {
+    width: 100%;
+    z-index:-1;
+}
+
+.weui-grid {
+    padding: 0;
+}
+
+.weui-grid:before {
+    border: 0;
+}
+
+.weui-grid:after {
+    border: 0;
+}
+
+.weui-grids:before {
+    border: 0;
+}
+
+a {
+    text-align: center;
+}
+
+.img {
+    width: 90%;
+    margin-top: 1vw;
+    height: 45.9vw;
+}
+
+.info {
+    display: none;
+    margin-top: 1vw;
+    width: 0;
+    height: 45.9vw;
+}
+
+.shelter {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.bottom {
+    width: 100%;
+}
+#gameNum {
+    width: 45%;
+    height: 10vw;
+    line-height: 10vw;
+    text-align: center;
+    color: #fff;
+    font-size: 4vw;
+    background-color: #E88C3C;
+    border-radius: 5vw;
+    margin: 37vw auto 4vw;
+}
+#draw{
+    padding:0 20px;
+}
+.fixed-btn {
+    width: 18%;
+    position: fixed;
+    top: 4px;
+    right: 0;
+}
+.fixed-btn img {
+    width: 100%;
+}

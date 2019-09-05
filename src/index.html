@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>翻牌抽奖</title>
+</head>
+<body>
+    <div id ="gameNum" style="">
+        您共有 <span style="color:#fff; font-size:4vw;">0</span>次翻牌机会
+    </div>
+    <a href='rule.html' class="fixed-btn">
+        <img src="./img/rule.png" alt="">
+    </a>
+    <div class="weui-grids" id="draw">
+        <a href="javascript:;" id="a1" class="weui-grid">
+            <img class="img" src="./img/fugai/pai_z.png" alt="">
+            <img class="info" data-i="1" src="./img/jieguo/1.png" alt="">
+        </a>
+        <a href="javascript:;" id="a2" class="weui-grid">
+            <img class="img" src="./img/fugai/pai_z.png" alt="">
+            <img class="info" data-i="2"  src="./img/jieguo/2.png" alt="">
+        </a>
+        <a href="javascript:;" id="a3" class="weui-grid">
+            <img class="img" src="./img/fugai/pai_z.png" alt="">
+            <img class="info" data-i="3" src="./img/jieguo/3.png" alt="">
+        </a>
+        <a href="javascript:;" id="a4" class="weui-grid">
+            <img class="img" src="./img/fugai/pai_z.png" alt="">
+            <img class="info" data-i="4" src="./img/jieguo/4.png" alt="">
+        </a>
+    </div>
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">恭喜您中奖啦</strong></div>
+            <div class="weui-dialog__bd"></div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;"  onclick="TurnMyCenter(1)" class="weui-dialog__btn weui-dialog__btn_default">去查看</a>
+                <a href="javascript:;" onclick="Refresh(1)" class="weui-dialog__btn weui-dialog__btn_primary">再翻一次</a>
+            </div>
+        </div>
+    </div>
+    <div class="js_dialog" id="iosDialog2" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">很遗憾，您没有中奖</strong></div>
+            <div class="weui-dialog__bd">不要气馁，您可以再翻一次</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" onclick="ClosePage(2)" class="weui-dialog__btn weui-dialog__btn_default">关闭</a>
+                <a href="javascript:;" onclick="Refresh(2)" class="weui-dialog__btn weui-dialog__btn_primary">再翻一次</a>
+            </div>
+        </div>
+    </div>
+    <div class="js_dialog" id="iosDialog3" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__bd">不要气馁，您可以再翻一次</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" onclick="ClosePage(3)" class="weui-dialog__btn weui-dialog__btn_default">关闭</a>
+                <a href="javascript:;" onclick="Refresh(3)" class="weui-dialog__btn weui-dialog__btn_primary">确认</a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <script src="http://browser.umeweb.com/v6/ume/libs/jquery.min.js"></script>
+    <script src="http://browser.umeweb.com/v6/ume/js/tool/vue.min.js"></script>
+    <script src="http://browser.umeweb.com/v6/ume/js/tool/axios.min.js"></script>
+
+</body>
+</html>
