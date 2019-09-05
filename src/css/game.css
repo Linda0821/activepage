@@ -52,6 +52,7 @@ table {
 
 html {
     overflow-y: scroll;
+    background-color: #FF685D;
 }
 
 .clearfix:after {
@@ -73,7 +74,7 @@ html {
 
 body {
     display: block;
-    background-color: #f54e42;
+    background-color: #FF685D;
     height: 100%;
     position: absolute;
     top: 0;
@@ -119,12 +120,15 @@ body {
     height:0;
     border-radius:5px 5px 0 0;
 }
+#pop_game .notice span{
+    display: block;
+    margin: 0 auto .2rem;
+}
 /*抽奖结果上传失败弹框*/
 .notice_pop {
     text-align: center;
     font-size: 0.3rem;
-    line-height: 1rem;
-    padding: 0.2rem;
+    padding: 0.5rem 0.2rem;
     border-bottom: 1px solid #efefef;
 }
 #submitBtn {

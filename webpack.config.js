@@ -5,11 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require("extract-text-webpack-plugin")//css 分离
 //const extractCSS = new extractTextPlugin("css/[name].[hash:6].css")
 const extractCSS = new extractTextPlugin({
-  filename: 'css/[name].[md5:contenthash:hex:6].css',
+  filename: 'css/[name].min.css',
   allChunks: true
 });
 const extractSCSS = new extractTextPlugin({
-  filename: 'css/[name].[md5:contenthash:hex:6].css',
+  filename: 'css/[name].min.css',
   allChunks: true
 });
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css插件
@@ -20,7 +20,7 @@ module.exports = {
     publicPath:"./",
     path: path.resolve(__dirname + "/dist"),
     //打包后的js文件存放的地方
-    filename: "js/[name].[hash:6].js" //打包后的js文件名
+    filename: "js/[name].min.js" //打包后的js文件名
   },
   plugins: [
     extractCSS,
@@ -30,6 +30,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template:'src/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'rule.html',
+      template:'src/rule.html',
+      chunks: [""]
     })
   ],
   module: {

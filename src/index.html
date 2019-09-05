@@ -5,12 +5,10 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no">
-	<title>用微米领现金红包</title>
+	<title>幸运抽奖大转盘</title>
 	<script type="text/javascript">
-	  /*/!*统计*!/
       var _czc = _czc || [];
-      _czc.push(["_setAccount", "1273327993"]);*/
-
+      _czc.push(["_setAccount", "1273327993"]);
       _resize();
       window.addEventListener('resize', _resize, false);
       function _resize() {
@@ -21,36 +19,21 @@
         }
         html.style.fontSize = windowWidth / 7.2 + 'px';
       }
-      function debug_print(log) {
-        try {
-          window.App.logger(log);
-        } catch (e) {
-          console.log(log);
-        }
-      }
+
 	</script>
 </head>
 <body>
 
 <div class="game">
-	<div class="title">
-		<p id="count-num">
-			今日剩余： <span>100000</span> 份
-		</p>
-		<div id="timer">
-			<span>00</span><span>00</span><span>00 </span><span>00</span>
-		</div>
-	</div>
 	<div class="wheel-box">
 		<div id="wheel"></div>
 		<div id="arrow">
 			<div class="luckDrawCount">抢豪礼<br>还有<span>0</span>次</div>
 		</div>
 	</div>
-	<div class="fixed-btn">
-		<img id="shareBtn" src="img/share.png" alt="">
-		<img id="registerBtn" src="img/register.png" alt="">
-	</div>
+	<a href='rule.html' class="fixed-btn">
+		<img src="./img/rule.png" alt="">
+	</a>
 </div>
 <script src="http://browser.umeweb.com/v6/ume/libs/jquery.min.js"></script>
 <script src="http://browser.umeweb.com/v6/ume/libs/droi-baas-min.js"></script>

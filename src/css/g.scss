@@ -7,51 +7,15 @@ $brower-default-font-size:100px !default;
 .game {
   margin: 0 auto;
   width: rem(720px);
-  min-height: rem(2701px);
-  background: url(../img/bg.png) center top no-repeat;
-  background-size: rem(720px) rem(2701px);
+  min-height: rem(1134px);
+  background: #FF685D url(../img/bg.png) center top no-repeat;
+  background-size: rem(720px) rem(1134px);
   box-sizing: border-box;
   overflow: hidden;
-
-  .title {
-    height:rem(560px);
-    position:relative;
-    #count-num{
-      width:100%;
-      position: absolute;
-      bottom:rem(90px);
-      text-align: center;
-      font-size: rem(30px);
-      font-weight:600;
-      color:#522911;
-      span{
-        font-size: rem(30px);
-        color: #f54e42;
-        text-decoration: underline;
-      }
-    }
-    #timer {
-      width: 56%;
-      position: absolute;
-      bottom:0;
-      left:30%;
-      text-align: center;
-      color:#fff;
-    }
-    #timer span {
-      display: inline-block;
-      width:rem(78px);
-      height:rem(76px);
-      padding-left: rem(16px);
-      line-height:rem(76px);
-      font-size: rem(30px);
-      color:#fff;
-    }
-  }
   .wheel-box {
-    width: rem(498px);
-    height: rem(498px);
-    margin: 0 auto;
+    width: rem(669px);
+    height: rem(670px);
+    margin: rem(462px) auto 0;
     position: relative;
     #wheel {
       width: 100%;
@@ -63,11 +27,11 @@ $brower-default-font-size:100px !default;
       overflow: hidden;
       left: 0;
       background: url('../img/pan.png') center center no-repeat;
-      background-size: rem(498px) rem(498px);
+      background-size: rem(669px) rem(670px);
     }
     #arrow {
-      width: rem(144px);
-      height: rem(165px);
+      width: rem(178px);
+      height: rem(207px);
       position: absolute;
       top: 0;
       left: 0;
@@ -76,30 +40,53 @@ $brower-default-font-size:100px !default;
       margin: auto;
       z-index: 2;
       background: url('../img/zhen.png') center center no-repeat;
-      background-size: rem(144px) rem(165px);
+      background-size: rem(178px) rem(207px);
     }
   }
   .luckDrawCount {
     text-align: center;
-    color: #eb1111;
+    color: #fff;
     font-size: rem(30px);
     font-weight: 600;
-    margin: rem(50px) auto;
+    margin: rem(66px) auto;
     z-index: 99;
     span{
-      color:#782f18;
+      color:#fff;
     }
   }
   .fixed-btn {
-    width:100%;
+    width:rem(118px);
     position:fixed;
-    bottom:0;
+    top:4px;
+    right:0;
     img{
-      float:left;
-      width:rem(350px);
+      width:rem(118px);
       padding-left: rem(7px);
     }
   }
-
+}
+#cnzz_stat_icon_1273327993 img{
+  width:0;
+}
+a{
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.img-water{
+  width: rem(75px);
+  height: rem(99px);
+  background: url('../img/water.png') center center no-repeat;
+  background-size: rem(75px) rem(99px);
+}
+.img-bag{
+  width: rem(79px);
+  height: rem(96px);
+  background: url('../img/bag.png') center center no-repeat;
+  background-size: rem(79px) rem(96px);
+}
+.img-coin{
+  width: rem(87px);
+  height: rem(88px);
+  background: url('../img/coin.png') center center no-repeat;
+  background-size: rem(87px) rem(88px);
 }
 
