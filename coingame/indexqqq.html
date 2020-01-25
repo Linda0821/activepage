@@ -18,7 +18,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 4vw;
-		height: 60vh;
+		height: 70vh;
 		justify-content: center;
 	}
 	.van-radio{
@@ -35,8 +35,8 @@
 </style>
 	<body>
 		<!-- <van-nav-bar title="标题" /> -->
-		<div id="app" >
-			<section v-if="sectionActive === 1">
+		<div id="app" class="wrap">
+			<section v-if="sectionActive === 1" class="scroll">
 				<h3 style="text-align:center;margin-top:4vw;font-size: 5vw;">冠状问卷</h3>
 				<h6 style="text-align:center;font-size: 3vw;">本页面基于疫情防治《协和解决方案》制作</h6>
 				<div class="home">
@@ -47,7 +47,7 @@
 				<p style="font-size: 3.5vw;color:#666;padding:0 4vw;">内容支持： 朱亚伦（华中科技大学公共卫生学院）<br/> 技术支持： 黄云飞</p>
 			</section>
 			
-			<section v-if="sectionActive === 2">
+			<section v-if="sectionActive === 2" class="scroll">
 				<div v-for="(item,index) in questions" v-if="item.isDisplay">
 					<p v-html="item.index+'、'+item.title" style="line-height: 3.5vh;"></p>
 					<van-radio-group v-model="item.value" @change="showQuestion" style="display: flex;justify-content: space-start;padding-left: 4vw;">
@@ -57,7 +57,7 @@
 				<van-button type="info" @click="submit" style="width:90vw;">提交</van-button>
 			</section>
 			
-			<section v-if="sectionActive === 3">
+			<section v-if="sectionActive === 3" class="scroll">
 				<div v-if="viewType === 'result'" style="text-align:center">
 					<h3>{{howto.results.conclusion}}</h3>
 					<p>{{howto.results.description}}</p>
@@ -75,6 +75,30 @@
 	<!-- 引入组件库 -->
 	<script src="https://cdn.jsdelivr.net/npm/vant@2.4/lib/vant.min.js"></script>
 	<script type="text/javascript">
+		const overscroll = function(el) {
+        el.addEventListener('touchstart', function() {
+          var top = el.scrollTop;
+          var totalScroll = el.scrollHeight;
+          var currentScroll = top + el.offsetHeight;
+          if (top === 0) {
+            el.scrollTop = 1;
+          } else if (currentScroll === totalScroll) {
+            el.scrollTop = top - 1;
+          }
+        });
+        el.addEventListener('touchmove', function(evt) {
+          if (el.offsetHeight < el.scrollHeight) {
+            evt._isScroller = true;
+          }
+        });
+      };
+      overscroll(document.querySelector('.scroll'));// 需要滚动的区域类名：如：.scroll
+      const wrap = document.querySelector('.wrap');  //页面最外层的类名如：.wrap
+      wrap.addEventListener('touchmove', function(evt) {
+        if (!evt._isScroller) {
+          evt.preventDefault();
+        }
+      }, { passive: false });
 		const questions = [
 			{
 				title:"您是否近半个月在武汉逗留过或与曾经在武汉逗留者见面/聚会/交流？",
