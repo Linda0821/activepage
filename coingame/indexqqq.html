@@ -107,7 +107,7 @@
 		];
 		const howto = [
 			{
-				display : "((this.questions.武汉接触史.value =='否')&&(this.questions.可疑人员接触史.value =='否')&&(this.questions.发热.value =='否')&&(this.questions.可疑症状.value =='是'))",
+				display : "((this.questions.武汉接触史.value =='否')&&(this.questions.可疑人员接触史.value =='否')&&(this.questions.发热.value =='否') && (this.questions.可疑症状.value== '否'))",
 				results : {
 					conclusion:"感染可能性较低",
 					description:"目前感染较低，请保持警惕",
@@ -125,7 +125,7 @@
 				}
 			},
 			{
-				display : "(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史== '是') || (this.questions.可疑人员接触史.value == '是') || (this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && this.questions.易感人群.value== '是')",
+				display : "(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史== '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && this.questions.易感人群.value== '是')",
 				results : {
 					conclusion:"感染可能性较高",
 					description:"请尽快就诊，以便得到及时治疗",
