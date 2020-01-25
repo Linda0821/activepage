@@ -6,28 +6,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 		<meta name="description" content="hot article">
 	</head>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css">
-	<style type="text/css">
-		#app{
-			padding: 4vw;;
-		}
-		.home{
-			display: flex;
-			flex-direction: column;
-			padding: 4vw;
-			height: 92vh;
-			justify-content: center;
-		}
-		.van-radio{
-			margin-bottom: 2vw;
-			margin-right: 10vw;
-		}
-		.van-button{
-			margin: 3vh 0;
-		}
-	</style>
+<!-- 引入样式文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css">
+<style type="text/css">
+#app{
+	padding: 4vw;;
+}
+	.home{
+		display: flex;
+		flex-direction: column;
+		padding: 4vw;
+		height: 92vh;
+		justify-content: center;
+	}
+	.van-radio{
+		margin-bottom: 2vw;
+		margin-right: 10vw;
+	}
+	.van-button{
+		margin: 3vh 0;
+	}
+</style>
 	<body>
+		<!-- <van-nav-bar title="标题" /> -->
 		<div id="app" >
 			<section v-if="sectionActive === 1">
 				<h3 style="text-align:center;margin-top:4vw;font-size: 5vw;">冠状问卷</h3>
@@ -55,7 +56,7 @@
 				</div>
 				<div>
 					<h3>{{howto.results.title}}</h3>
-					<p v-html="howto.results.content" style="line-height: 3vh;"></p>
+					<p v-html="howto.results.content"></p>
 				</div>
 			</section>
 
@@ -86,7 +87,7 @@
 				display: "1==1" 
 			},
 			{
-				title:"您是否正在发热且超过37.3度/聚会/交流？",
+				title:"您是否正在发热且超过37.3度？",
 				options:["是","否"],
 				varName:"发热",
 				display: "1==1" 
@@ -120,7 +121,7 @@
 					conclusion:"感染可能性一般",
 					description:"需要进行为期14天的自我隔离观察，切勿直接就诊，以防交叉感染。",
 					title:"隔离步骤",
-					content:"虽然您存在感染病毒风险或已出现轻微病情，但一定不要慌张，保证我们自身免疫系统功能正常情况下，进行合理和隔离及自我抗病毒治疗是可疑达到自愈的效果，目前已经有数位患者(也包括非专业医务人员)出现轻微症状后自行康复，因此我们一定要冷静理性地看待流感。<br/><br/><b>1、必备用品准备：<b/><br/>a.体温计<br/>b.奥司维他<br/>c.阿莫西林<br/>d.布洛芬口服液。<br/><br/><b>2、选备用品准备：<b/><br/>a.如有咳嗽咽痛，准备蜂蜜、薄荷糖或川贝枇杷膏；<br/>b.如有腹泻，准备香蕉、粗粮(玉米)；<br/><br/><b>3、日常行为：<b/><br/>a.不与家人面对面交流，且交流时带口罩，并保持2m以上距离；<br/>b.不外出；<br/>c.不随地吐痰；<br/>d.打喷嚏时用肘部遮挡，以防唾液飞溅<br/><br/><b>4、起居行为：<b/><br/>a.寻找独立的隔离环境(单间)，与家人隔离至少2周；<br/>b.保证10小时及以上的充足睡眠，确保充分休息。<br/><br/><b>5、饮食行为：<b/><br/>a.不吃油腻、油炸、烧烤等食物，以牛奶、鸡蛋、瘦肉、鱼肉、丰富多样的蔬菜及水果为主，并且保证主食摄入量。<br/>b.每日饮水量一定要加大，尽可能保证平均每小时有150毫升(约3个鸡蛋的体积)左右的饮水<br/><br/><b>6、病情监控<b/><br/>a.每天早中晚测量三次体温监测体温变化；<br/><br/><b>7、用药<b/><br/>a.每日口服奥司维他和阿莫西林两种药物，服用方法详见说明书<br/>b.如有发热超过38度时：布洛芬口服液使体温控制在38度以内，但无需达到正常体温，过低的体温反而不利于抗病毒。<br/>c.如有咳嗽咽痛：可用蜂蜜、薄荷糖、川贝枇杷膏缓解，热鸡汤也有一定缓解作用。<br/>d.如有腹泻症状：可增加食用香蕉、粗粮等缓解腹泻的食物，并注意补充水分，若腹泻引起虚脱则需及时去医院就诊。"
+					content:"虽然您存在感染病毒风险或已出现轻微病情，但一定不要慌张，保证我们自身免疫系统功能正常情况下，进行合理和隔离及自我抗病毒治疗是可疑达到自愈的效果，目前已经有数位患者(也包括非专业医务人员)出现轻微症状后自行康复，因此我们一定要冷静理性地看待流感。<br/><br/><b>1、必备用品准备：</b><br/>a.体温计<br/>b.奥司维他<br/>c.阿莫西林<br/>d.布洛芬口服液。<br/><br/><b>2、选备用品准备：</b><br/>a.如有咳嗽咽痛，准备蜂蜜、薄荷糖或川贝枇杷膏；<br/>b.如有腹泻，准备香蕉、粗粮(玉米)；<br/><br/><b>3、日常行为：</b><br/>a.不与家人面对面交流，且交流时带口罩，并保持2m以上距离；<br/>b.不外出；<br/>c.不随地吐痰；<br/>d.打喷嚏时用肘部遮挡，以防唾液飞溅<br/><br/><b>4、起居行为：</b><br/>a.寻找独立的隔离环境(单间)，与家人隔离至少2周；<br/>b.保证10小时及以上的充足睡眠，确保充分休息。<br/><br/><b>5、饮食行为：</b><br/>a.不吃油腻、油炸、烧烤等食物，以牛奶、鸡蛋、瘦肉、鱼肉、丰富多样的蔬菜及水果为主，并且保证主食摄入量。<br/>b.每日饮水量一定要加大，尽可能保证平均每小时有150毫升(约3个鸡蛋的体积)左右的饮水<br/><br/><b>6、病情监控</b><br/>a.每天早中晚测量三次体温监测体温变化；<br/><br/><b>7、用药</b><br/>a.每日口服奥司维他和阿莫西林两种药物，服用方法详见说明书<br/>b.如有发热超过38度时：布洛芬口服液使体温控制在38度以内，但无需达到正常体温，过低的体温反而不利于抗病毒。<br/>c.如有咳嗽咽痛：可用蜂蜜、薄荷糖、川贝枇杷膏缓解，热鸡汤也有一定缓解作用。<br/>d.如有腹泻症状：可增加食用香蕉、粗粮等缓解腹泻的食物，并注意补充水分，若腹泻引起虚脱则需及时去医院就诊。"
 				}
 			},
 			{
