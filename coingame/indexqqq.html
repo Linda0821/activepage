@@ -16,7 +16,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 4vw;
-		height: 92vh;
+		height: 70vh;
 		justify-content: center;
 	}
 	.van-radio{
@@ -24,7 +24,7 @@
 		margin-right: 10vw;
 	}
 	.van-button{
-		margin: 3vh 0;
+		margin-top: 3vh;
 	}
 </style>
 	<body>
@@ -32,11 +32,13 @@
 		<div id="app" >
 			<section v-if="sectionActive === 1">
 				<h3 style="text-align:center;margin-top:4vw;font-size: 5vw;">冠状问卷</h3>
+				<h6 style="text-align:center;font-size: 3vw;">本页面基于疫情防治《协和解决方案》制作</h6>
 				<div class="home">
 					<van-button type="info" @click="sectionActive=2">感染风险测试</van-button>
 					<van-button type="info" @click="viewDetail('隔离方法')">隔离方法</van-button>
 					<van-button type="info" @click="viewDetail('就诊准备')">就诊准备</van-button>
 				</div>
+				<p style="font-size: 3.5vw;color:#666;padding:0 4vw;">内容支持： 朱亚伦（华中科技大学公共卫生学院）<br/> 技术支持： 黄云飞</p>
 			</section>
 			
 			<section v-if="sectionActive === 2">
@@ -102,7 +104,7 @@
 				title:"您是否已经出现呼吸困难、气促等明显影响呼吸功能或正常生活的症状？",
 				options:["是","否"],
 				varName:"医院诊断必要性",
-				display: "((this.questions.武汉接触史.value == '是')||(this.questions.可疑人员接触史.value == '是'))&&((this.questions.发热.value == '是')||(this.questions.可疑症状.value == '是'))" 
+				display: "((this.questions.发热.value == '是')||(this.questions.可疑症状.value == '是'))" 
 			}
 		];
 		const howto = [
@@ -115,17 +117,19 @@
 					content:"1、外出活动戴好口罩(一般医用外科口罩预防效果已能达到要求，无需N95)<br/>2、不参加集中聚会等活动<br/>3、勤洗手以保证个人卫生(需要使用肥皂或洗手液)"
 				}
 			},
+			
 			{
 				display : "((this.questions.武汉接触史.value == '是')||(this.questions.可疑人员接触史.value== '是') ||(this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是'))",
 				results : {
 					conclusion:"感染可能性一般",
 					description:"需要进行为期14天的自我隔离观察，切勿直接就诊，以防交叉感染。",
 					title:"隔离步骤",
-					content:"虽然您存在感染病毒风险或已出现轻微病情，但一定不要慌张，保证我们自身免疫系统功能正常情况下，进行合理和隔离及自我抗病毒治疗是可疑达到自愈的效果，目前已经有数位患者(也包括非专业医务人员)出现轻微症状后自行康复，因此我们一定要冷静理性地看待流感。<br/><br/><b>1、必备用品准备：</b><br/>a.体温计<br/>b.奥司维他<br/>c.阿莫西林<br/>d.布洛芬口服液。<br/><br/><b>2、选备用品准备：</b><br/>a.如有咳嗽咽痛，准备蜂蜜、薄荷糖或川贝枇杷膏；<br/>b.如有腹泻，准备香蕉、粗粮(玉米)；<br/><br/><b>3、日常行为：</b><br/>a.不与家人面对面交流，且交流时带口罩，并保持2m以上距离；<br/>b.不外出；<br/>c.不随地吐痰；<br/>d.打喷嚏时用肘部遮挡，以防唾液飞溅<br/><br/><b>4、起居行为：</b><br/>a.寻找独立的隔离环境(单间)，与家人隔离至少2周；<br/>b.保证10小时及以上的充足睡眠，确保充分休息。<br/><br/><b>5、饮食行为：</b><br/>a.不吃油腻、油炸、烧烤等食物，以牛奶、鸡蛋、瘦肉、鱼肉、丰富多样的蔬菜及水果为主，并且保证主食摄入量。<br/>b.每日饮水量一定要加大，尽可能保证平均每小时有150毫升(约3个鸡蛋的体积)左右的饮水<br/><br/><b>6、病情监控</b><br/>a.每天早中晚测量三次体温监测体温变化；<br/><br/><b>7、用药</b><br/>a.每日口服奥司维他和阿莫西林两种药物，服用方法详见说明书<br/>b.如有发热超过38度时：布洛芬口服液使体温控制在38度以内，但无需达到正常体温，过低的体温反而不利于抗病毒。<br/>c.如有咳嗽咽痛：可用蜂蜜、薄荷糖、川贝枇杷膏缓解，热鸡汤也有一定缓解作用。<br/>d.如有腹泻症状：可增加食用香蕉、粗粮等缓解腹泻的食物，并注意补充水分，若腹泻引起虚脱则需及时去医院就诊。"
-				}
+					content:"虽然您存在感染病毒风险或已出现轻微病情，但一定不要慌张，保证我们自身免疫系统功能正常情况下，进行合理和隔离及自我抗病毒治疗是可疑达到自愈的效果，目前已经有数位患者(也包括非专业医务人员)出现轻微症状后自行康复，因此我们一定要冷静理性地看待流感。<br/><br/><b>1、必备用品准备：</b><br/>a.体温计<br/>b.奥司维他<br/>c.阿莫西林<br/>d.布洛芬口服液。<br/><br/><b>2、选备用品准备：</b><br/>a.如有咳嗽咽痛，准备蜂蜜、薄荷糖或川贝枇杷膏；<br/>b.如有腹泻，准备香蕉、粗粮(玉米)；<br/><br/><b>3、日常行为：</b><br/>a.不与家人面对面交流，且交流时带口罩，并保持2m以上距离；<br/>b.不外出；<br/>c.不随地吐痰；<br/>d.打喷嚏时用肘部遮挡，以防唾液飞溅<br/><br/><b>4、起居行为：</b><br/>a.寻找独立的隔离环境(单间)，与家人隔离至少2周；<br/>b.保证10小时及以上的充足睡眠，确保充分休息。<br/><br/><b>5、饮食行为：</b><br/>a.不吃油腻、油炸、烧烤等食物，以牛奶、鸡蛋、瘦肉、鱼肉、丰富多样的蔬菜及水果为主，并且保证主食摄入量。<br/>b.每日饮水量一定要加大，尽可能保证平均每小时有150毫升(约3个鸡蛋的体积)左右的饮水<br/><br/><b>6、病情监控</b><br/>a.每天早中晚测量三次体温监测体温变化；<br/><br/><b>7、用药</b><br/>a.每日口服奥司维他和阿莫西林两种药物，服用方法详见说明书<br/>b.如有发热超过38度时：布洛芬口服液使体温控制在38度以内，但无需达到正常体温，过低的体温反而不利于抗病毒。若体温持续升高请及时去医院诊治。<br/>c.如有咳嗽咽痛：可用蜂蜜、薄荷糖、川贝枇杷膏缓解，热鸡汤也有一定缓解作用。<br/>d.如有腹泻症状：可增加食用香蕉、粗粮等缓解腹泻的食物，并注意补充水分，若腹泻引起虚脱则需及时去医院就诊。"
+				},
+
 			},
 			{
-				display : "(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史== '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && this.questions.易感人群.value== '是')",
+				display : "(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史.value == '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && (this.questions.易感人群.value== '是'))",
 				results : {
 					conclusion:"感染可能性较高",
 					description:"请尽快就诊，以便得到及时治疗",
@@ -133,6 +137,7 @@
 					content:"a.回忆近半个月内您与武汉背景人员接触频率及具体场景，以便医务人员判断可疑感染人员范围。<br/>b.回忆自己出现发热或其他相关症状的时间<br/>c.回忆您出现相关症状后都与哪些人进行了密切接触(如当面说话、一同生活)？<br/>d.如有近期血象检查单或肺部X光片请一并带好去医院确诊。"
 				}
 			}
+			
 		];
 		var app = new Vue({
 		  el: '#app',
@@ -153,7 +158,7 @@
 					display: item.display,
 					isDisplay: eval(item.display),
 					value:''
-		  		})
+		  		});
 		  	})
 		  },
 		  methods: {
@@ -188,6 +193,8 @@
 						this.viewType = 'result';
 						this.howto = item;
 					}
+					console.log(this.questions.武汉接触史.value,this.questions.可疑人员接触史.value,this.questions.易感人群.value,this.questions.发热.value,this.questions.可疑症状.value,this.questions.医院诊断必要性.value)
+					console.log("displayResult",(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史.value == '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && (this.questions.易感人群.value== '是'))) ;
 				})
 		    }
 		  }
