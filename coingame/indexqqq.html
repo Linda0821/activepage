@@ -6,7 +6,321 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 		<meta name="description" content="hot article">
 	</head>
+<!-- 引入样式文件 --><html>
+	<head>
+		<title>成年人新型冠状病毒肺炎筛查</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="hot article">
+	</head>
 <!-- 引入样式文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css">
+<style type="text/css">
+	#app{
+		font-family: PingFangSC-Regular;
+	}
+	.nav{
+		background: url(./assets/bg.jpg) no-repeat center;
+		background-size: 100% auto;
+		height: 28vh;
+		padding: 8vw 0;
+	}
+	.title{
+		/* margin-bottom: 0; */
+		margin-block-start: 0;
+		margin-block-end: 0;
+		text-align:center;
+		font-size: 5vw;
+		margin: 2vw 0;
+	}
+	.dependOn{
+		text-align:center;
+		font-size: 3vw;
+		margin-top: 6vh;
+	}
+	.dependOn p {
+		margin: 1vw 0;
+	}
+	.home{
+		display: flex;
+		flex-direction: column;
+		padding: 4vw 10vw;
+		height: 25vh;
+		justify-content: center;
+	}
+	.van-radio{
+		margin-bottom: 2vw;
+		margin-right: 10vw;
+		font-weight: bold;
+	}
+	.van-button{
+		margin-top: 3vh;
+	}
+	.btn_view{
+		width: 38vw;
+	}
+	.platform{
+		display: flex;
+		padding: 4vw 10vw;
+		height: 5vh;
+		line-height: 5vh;
+		align-items: center;
+		font-size: 4vw;
+		justify-content: space-between;
+	}
+	.support{
+		font-size: 3.5vw;
+		color: #D0D0D0;
+		padding:6vw;
+		width: 88vw;
+		background: #595353;
+		height: 10vh;
+		position: absolute;
+		bottom: 0;
+	}
+	.support p {
+		margin: 1vw 0;
+	}
+	.section{
+		background: url(./assets/bg.jpg) repeat center;
+		background-size: 100% auto;
+		padding: 2vh  4vw;
+		min-height: 96vh;
+	}
+	.question{
+		width: 80vw;
+		margin: 4vw auto;
+		background: #fff;
+		box-shadow: 0 4px 10px 0 rgba(182,181,181,0.50);
+		border-radius: 4px;
+		padding: 4vw 6vw;
+		font-size: 4vw;
+	}
+	.section2_nav{
+		margin-bottom: 6vh;
+	}
+	.section2_support{
+		font-size: 3vw;
+		color: #D0D0D0;
+		margin-top: 6vh;
+		padding:2vw;
+		width: 88vw;
+		text-align: center;
+		background: #595353;
+		height: 12vh;
+	}
+</style>
+	<body>
+		<div id="app" >
+			<section v-if="sectionActive === 1" >
+				<div class="nav">
+					<h3 class="title" style="margin:0;font-size: 7vw;">2019-nCoV</h3>
+					<h3 class="title" >新型冠状病毒肺炎</h3>
+					<h3 class="title" style="font-weight:500">自我筛查</h3>
+					<div class="dependOn">
+						<p style="font-size: 3vw;">本页面基于疫情防治《协和解决方案》制作</p>
+						<p style="color: #1989FA;font-size: 3.5vw;" @click="linkToUs">更多疑问和建议点击此处联系</pstyle="">
+					</div>
+				</div>
+				<div class="home">
+					<van-button color="#1989FA" @click="sectionActive=2">感染风险测试</van-button>
+					<div style="display: flex;justify-content: space-between;font-weight: bold;">
+						<van-button plain type="primary" @click="viewDetail('隔离方法')" class="btn_view">隔离方法</van-button>
+						<van-button plain color="#FF976A" @click="viewDetail('就诊准备')" class="btn_view">就诊准备</van-button>
+					</div>
+				</div>
+				<div class="platform" @click="linkTo">
+					<p>腾讯辟谣平台</p>
+					<van-icon name="arrow" />
+				</div>
+				<div class="support">
+					<p >内容支持： 朱亚伦（华中科技大学公共卫生学院）</p>
+					<p >技术支持： 黄云飞 常美玲</p>
+					<p >制作单位： 轻得健康</p>
+				</div>
+			</section>
+
+			<section v-if="sectionActive === 2" class="section">
+				<div class="section2_nav">
+					<h3 class="title" style="margin:0;font-size: 7vw;">2019-nCoV</h3>
+					<h3 class="title" >新型冠状病毒肺炎</h3>
+					<h3 class="title" style="font-weight:500">自我筛查</h3>
+				</div>
+				<div>
+					<div v-for="(item,index) in questions" v-if="item.isDisplay" class="question">
+						<p v-html="item.index+'、'+item.title" style="line-height: 3.5vh;"></p>
+						<van-radio-group v-model="item.value" @change="showQuestion" style="display: flex;justify-content: space-around;">
+						  <van-radio :name="option" v-for="option in item.options" checked-color="#07c160" icon-size="32px">{{option}}</van-radio>
+						</van-radio-group>
+					</div>
+					<van-button type="info" @click="submit" style="width:80vw;margin-left: 6vw;">查看结果</van-button>
+				</div>
+				<div class="section2_support">
+					<p >本页面基于疫情防治《协和解决方案》制作</p>
+					<a style="text-decoration:underline;font-size:3.5vw" @click="linkToUs">更多疑问和建议点击此处联系</a>
+				</div>
+			</section>
+			
+			<section v-if="sectionActive === 3" class="section">
+				<p style="text-align:center;font-weight: bold;font-size: 3.5vw;">2019-nCoV  新型冠状病毒肺炎</p>
+				<div v-if="viewType === 'result'" style="text-align:center;font-weight: bold;" class="question">
+					<h3>感染可能性：<span v-html="howto.results.conclusion" style="font-size: 8vw;"></span></h3>
+					<p v-html="howto.results.description" style="padding:0 6vw;"></p>
+				</div>
+				<div class="question" style="font-weight: bold;line-height: 4vh;">
+					<h3>{{howto.results.title}}</h3>
+					<p v-html="howto.results.content"></p>
+				</div>
+				<van-button type="info" @click="sectionActive = 1" style="width:80vw;margin-left: 6vw;">返回</van-button>
+			</section>
+
+		</div>
+		<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66512788" charset="UTF-8"></script>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.4/lib/vant.min.js"></script>
+	<script type="text/javascript">
+		const questions = [
+			{
+				title:"<b>您是否<span style='color:#FF976A'>近半个月</span>在武汉逗留过或与曾经在武汉逗留者见面/聚会/交流？</b>",
+				options:["是","否"],
+				varName:"武汉接触史",
+				display: "1==1" 
+			},
+			{
+				title:"<b>您是否<span style='color:#FF976A'>近半个月</span>接触过患有发烧或肺炎或病毒性感冒患者？</b>",
+				options:["是","否"],
+				varName:"可疑人员接触史",
+				display: "1==1" 
+			},
+			{
+				title:"<b>您是否<span style='color:#FF976A'>属于</span>以下人群？</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;> 大于60岁<br/>  &nbsp;&nbsp;&nbsp; &nbsp;> 孕妇<br/>  &nbsp;&nbsp;&nbsp; &nbsp;> 患有以下一种疾病，癌症、免疫功能障碍疾病、高血压糖尿病、血液病、肝炎或胰腺炎、呼吸系统疾病(如哮喘、慢阻肺、支气管炎等)、心血管疾病(如冠心病等)",
+				options:["是","否"],
+				varName:"易感人群",
+				display: "1==1" 
+			},
+			{
+				title:"<b>您是否正在发热且超过<span style='color:#FF976A'>37.3度</span>？</b>",
+				options:["是","否"],
+				varName:"发热",
+				display: "1==1" 
+			},
+			{
+				title:"<b>您<span style='color:#FF976A'>近一周内“曾”</span>出现以下哪些症状？</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;> 连续两天及以上的恶心或腹泻<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 眼结膜发炎<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 连续两天及以上的咳嗽或咽痛<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 连续两天及以上感到眩晕头痛或肌肉酸痛",
+				options:["是","否"],
+				varName:"可疑症状",
+				display: "1==1" 
+			},
+			{
+				title:"<b>您是否已经出现<span style='color:#FF976A'>呼吸困难、气促等明显影响呼吸功能或正常生活的症状？</span></b>",
+				options:["是","否"],
+				varName:"医院诊断必要性",
+				display: "((this.questions.发热.value == '是')||(this.questions.可疑症状.value == '是'))" 
+			}
+		];
+		const howto = [
+			{
+				display : "((this.questions.武汉接触史.value =='否')&&(this.questions.可疑人员接触史.value =='否')&&(this.questions.发热.value =='否') && (this.questions.可疑症状.value== '否'))",
+				results : {
+					conclusion:"<span style='color:#07C160'>较低</span>",
+					description:"目前感染较低，请<span style='color:#FF976A'>保持警惕</span>",
+					title:"行为准则",
+					content:"1、外出活动<span style='color:#FF976A'>戴好口罩</span>(一般医用外科口罩预防效果已能达到要求，无需N95)<br/>2、<span style='color:#FF976A'>不参加集中聚会等活动</span><br/>3、<span style='color:#FF976A'>勤洗手</span>以保证个人卫生(需要使用肥皂或洗手液)"
+				}
+			},
+			
+			{
+				display : "((this.questions.武汉接触史.value == '是')||(this.questions.可疑人员接触史.value== '是') ||(this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是'))",
+				results : {
+					conclusion:"<span style='color:#FFB300'>一般</span>",
+					description:"需要进行为期<span style='color:#FF976A'>14天</span>的自我隔离观察，<span style='color:#FF976A'>切勿直接就诊，以防交叉感染。</span>",
+					title:"隔离説明",
+					content:"<b>1、必备用品准备：</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 体温计<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 奥司维他<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 阿莫西林<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 布洛芬口服液。</span><br/><br/><b>2、选备用品准备：</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 如有咳嗽咽痛，准备蜂蜜、薄荷糖或川贝枇杷膏；<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 如有腹泻，准备香蕉、粗粮(玉米)；</span><br/><br/><b>3、日常行为：</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 不与家人面对面交流，且交流时带口罩，并保持2m以上距离；<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 不外出；<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 不随地吐痰；<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 打喷嚏时用肘部遮挡，以防唾液飞溅</span><br/><br/><b>4、起居行为：</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 寻找独立的隔离环境(单间)，与家人隔离至少2周；<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 保证10小时及以上的充足睡眠，确保充分休息。</span><br/><br/><b>5、饮食行为：</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 不吃油腻、油炸、烧烤等食物，以牛奶、鸡蛋、瘦肉、鱼肉、丰富多样的蔬菜及水果为主，并且保证主食摄入量。<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 每日饮水量一定要加大，尽可能保证平均每小时有150毫升(约3个鸡蛋的体积)左右的饮水</span><br/><br/><b>6、病情监控</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 每天早中晚测量三次体温监测体温变化；</span><br/><br/><b>7、用药</b><br/> &nbsp;&nbsp;&nbsp; &nbsp;<span style='font-weight:normal'>> 每日口服奥司维他和阿莫西林两种药物，服用方法详见说明书<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 如有发热超过38度时：布洛芬口服液使体温控制在38度以内，但无需达到正常体温，过低的体温反而不利于抗病毒。若体温持续升高请及时去医院诊治。<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 如有咳嗽咽痛：可用蜂蜜、薄荷糖、川贝枇杷膏缓解，热鸡汤也有一定缓解作用。<br/> &nbsp;&nbsp;&nbsp; &nbsp;> 如有腹泻症状：可增加食用香蕉、粗粮等缓解腹泻的食物，并注意补充水分，若腹泻引起虚脱则需及时去医院就诊。</span>"
+				},
+
+			},
+			{
+				display : "(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史.value == '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && (this.questions.易感人群.value== '是'))",
+				results : {
+					conclusion:"<span style='color:#FF7859'>较高</span>",
+					description:"请<span style='color:#FF976A'>尽快就诊</span>，以便得到及时治疗",
+					title:"就诊准备",
+					content:" 1、回忆<span style='color:#FF976A'>近半个月内</span>您与武汉背景人员接触频率及具体场景，以便医务人员判断可疑感染人员范围。<br/>2、回忆自己出现发热或其他相关症状的时间<br/>3、回忆您出现相关症状后都与哪些人进行了密切接触(如当面说话、一同生活)？<br/> 4、如有近期血象检查单或肺部X光片请一并带好去医院确诊。"
+				}
+			}
+			
+		];
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		  	sectionActive:1,
+			viewType: '',
+		    questions: {},
+		    howto:{}
+		  },
+		  created(){
+		  	this.questions = {};
+		  	questions.forEach((item,index) => {
+		  		this.$set(this.questions,item.varName,{
+		  			index:index+1,
+			    	title:item.title,
+					options:item.options,
+					varName:item.varName,
+					display: item.display,
+					isDisplay: eval(item.display),
+					value:''
+		  		});
+		  	})
+		  },
+		  methods: {
+			linkToUs(){
+				window.location.href = 'https://vp.fact.qq.com/home?ADTAG=xw-1.jz&chlid=news_news_top&devid=7cc3fdfd5ab80b44&qimei=862187033020340&uid=&shareto=wx&article_exclude_marked=1551d2a7b37238806507a5a8fcd32b5d&dt_platform=wechat_moments&dt_dapp=1&from=singlemessage&isappinstalled=0';
+			},
+			linkTo(){
+				window.location.href = 'https://vp.fact.qq.com/home?ADTAG=xw-1.jz&chlid=news_news_top&devid=7cc3fdfd5ab80b44&qimei=862187033020340&uid=&shareto=wx&article_exclude_marked=1551d2a7b37238806507a5a8fcd32b5d&dt_platform=wechat_moments&dt_dapp=1&from=singlemessage&isappinstalled=0';
+			},
+		  	showQuestion(){
+		 		Object.keys(this.questions).forEach((item,index) => {
+		 			this.$set(this.questions,this.questions[item].varName,{
+		 				index:this.questions[item].index,
+		 				title:this.questions[item].title,
+		 				options:this.questions[item].options,
+		 				varName:this.questions[item].varName,
+		 				isDisplay: eval(this.questions[item].display),					
+						display: this.questions[item].display,
+		 				value:this.questions[item].value
+		 			})
+		 		})	
+		  	},
+			viewDetail(type){
+				this.sectionActive = 3;
+				this.viewType = 'view';
+
+				if(type === '隔离方法'){
+					this.howto = howto[1 ];
+				}
+				if(type === '就诊准备'){
+					this.howto = howto[2];
+				}
+			},
+		    submit: function () {
+				howto.forEach(item => {
+					if(eval(item.display)){
+						this.sectionActive = 3;
+						this.viewType = 'result';
+						this.howto = item;
+					}
+					console.log(this.questions.武汉接触史.value,this.questions.可疑人员接触史.value,this.questions.易感人群.value,this.questions.发热.value,this.questions.可疑症状.value,this.questions.医院诊断必要性.value)
+					console.log("displayResult",(this.questions.医院诊断必要性.value == '是') || (((this.questions.武汉接触史.value == '是') || (this.questions.可疑人员接触史.value == '是')) && ((this.questions.发热.value== '是') || (this.questions.可疑症状.value== '是')) && (this.questions.易感人群.value== '是'))) ;
+				})
+		    }
+		  }
+		})
+	</script>
+</html>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css">
 <style type="text/css">
 	#app{
