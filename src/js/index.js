@@ -14,8 +14,10 @@ var data_ac = {
 };
 var isShareClick = false;
 var myCoin = 0;
-import img1_pop from '../img/img1_pop.png'
-import img2_pop from '../img/img2_pop.png'
+// import img1_pop from '../img/img1_pop.png'
+// import img2_pop from '../img/img2_pop.png'
+var img1_pop = './img/img1_pop.png',
+img2_pop = './img/img2_pop.png';
 
 $(function () {
   // 定时器
@@ -45,8 +47,8 @@ function IsLoginIn(){
     /*pc端*/
     /*data_ac.User.coin = 20;
     data_ac.User.isFirstTime = false;
-    renderFromData('', data_ac.User);*/
-    //popUpGetTree('', data_ac.User)
+    renderFromData('', data_ac.User);
+    //popUpGetTree('', data_ac.User)*/
     pcInitUmeUser(function(){
       getMyInfor();
     });
@@ -91,6 +93,12 @@ function renderFromData(objectId,obj){
     /*水滴显示状态*/
     if(obj.water01 === 0) {
       $(".water1").show().attr("data-show","1");
+
+      var d = new Date().getDay();
+      console.info(d)
+      if( (d == 0) || (d == 6)){
+        $(".water1").attr("data-g","20g")
+      }
     }
     if(obj.water02 === 0) {
       $(".water2").show().attr("data-show","1");
@@ -262,6 +270,7 @@ function postWater(objectId, idx) {
   });
 }
 function postCoin(objectId) {
+
   $.ajax({
     type: 'POST',
     url: "http://browser.umeweb.com/cn_ume_api/farm/api/exchange/"+objectId,
@@ -526,8 +535,8 @@ function getUmeUserInfo(callback) {
 
 /*pc端测试*/
 function pcInitUmeUser(callback) {
-  var token = "c9d8d60008ff9ede",
-    objectId = "0f1c4e2aa4cd1a8a7977f324";
+  var token = "6637ec00088844bc",
+    objectId = "74f14d5d8c12d3fa7e999e66";
   UMeUser.initUser(token, objectId).then(function (init_user) {
     debug_print("linitUser user: " + JSON.stringify(init_user));
     postDid(init_user.InviteCode)
