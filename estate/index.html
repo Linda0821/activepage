@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, height=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1"/>
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+        <title>金币庄园</title>
+    <link rel="stylesheet" href="http://browser.umeweb.com/v6/ume/css/common/popup.css">
+    <!--<link rel="stylesheet" href="./css/index.css">-->
+    <style>
+        #cnzz_stat_icon_1273327993{
+            display: none;
+        }
+        #cnzz_stat_icon_1273327993 img {
+            width:0;
+        }
+        @-moz-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-o-keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @keyframes drop {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 70%;
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+
+        }
+        @-moz-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+        @-ms-keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+        @keyframes swing{
+            0%{-webkit-transform:scale(1,1);}
+            35%{-webkit-transform:scale(1.04,1.04);}
+            70%{-webkit-transform:scale(1.07,1.07);}
+            100%{-webkit-transform:scale(1.1,1.1);}
+        }
+    </style>  
+<link href="./css/main.min.css" rel="stylesheet"></head>
+<body>
+<div class="container">
+    <div class="content" style="height:300px;">
+        <!-- 太阳光 -->
+        <div class="sunlight">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- 山峰 -->
+        <div class="peak-box">
+            <div class="peak-1"></div>
+            <div class="peak-2"></div>
+            <div class="peak-3"></div>
+            <div class="peak-4"></div>
+            <div class="peak-5"></div>
+            <div class="peak-6"></div>
+            <div class="peak-7">
+                <div class="peak-7-1"></div>
+                <div class="peak-7-2"></div>
+            </div>
+            <div class="peak-8"></div>
+            <div class="peak-9"></div>
+            <!-- 风车塔 -->
+            <div class="windmill">
+                <div class="windmill-1"></div>
+                <div class="windmill-2"></div>
+                <div class="windmill-3"></div>
+                <div class="windmill-4"></div>
+                <div class="windmill-5">
+                    <div class="windmill-5-1"></div>
+                    <div class="windmill-5-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 白云 -->
+        <div class="clouds">
+            <div class="cloud x1"></div>
+            <div class="cloud x2"></div>
+           <!-- <div class="cloud x3"></div>-->
+        </div>
+
+        <!--大地-->
+        <div class="earth-1">
+            <!--添加树-->
+            <div class="tree-box tree-add" data-show="0">
+                <div class="tree-top"></div>
+                <div class="tree-btn"></div>
+                <div class="tree-bot"></div>
+            </div>
+            <!--小树-->
+            <div class="tree-box tree-s" data-show="0">
+                <div class="tree-top"></div>
+                <div class="tree-shadow"></div>
+            </div>
+            <!--长大一点的树-->
+            <div class="tree-box tree-m">
+
+            </div>
+            <!--长大了的树-->
+            <div class="tree-box tree-b" data-show="0">
+
+            </div>
+            <!--领取金币计时-->
+            <div class="time-count">
+                <i></i><span>00:00:00</span>后领取
+            </div>
+            <!--水滴按钮-->
+            <div class="water-btn">
+                <img src="./img/436aebe2.water_btn.png" alt="">
+            </div>
+            <!--水滴记录按钮-->
+            <div class="recording-btn">
+                <img src="./img/133a4e33.recording.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="water-wrap">
+        <div class="water water1" data-show="0" data-g="10g">
+        </div>   
+        <div class="water water2" data-show="0" data-g="10g">
+        </div>
+        <div class="water water3" data-show="0" data-g="10g">
+        </div>
+        <div class="water water4" data-show="0" data-g="50g">
+        </div>
+        <div class="water water5" data-show="0" data-g="50g">
+        </div>
+        <div class="water water6" data-show="0" data-g="100g">
+        </div>
+        <div class="coin" data-show="0" data-g="0">
+        </div>
+
+    </div>
+
+    <div class="coin-mine">
+        <i>我的金币数：</i><span>0</span>
+    </div>
+    <div class="part part-task">
+        <h1></h1>
+        <ul>
+            <li>1 每天<span data-id="0">登录</span>微米获得一次10g水滴</li>
+            <li>2 每天完成一次<span data-id="1">签到</span>获得一次10g水滴</li>
+            <li>3 每天完成<span data-id="2">首次阅读</span>任务获得一次10g水滴</li>
+            <li>4 邀请一名<span data-id="3">好友注册</span>微米浏览器获得50g水滴</li>
+        </ul>
+    </div>
+    <div class="part part-share">
+        <h1></h1>
+        <ul class="share">
+            <li data-share="WeChat"><img src="data:image/png;base64,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" alt=""></li>
+            <li data-share="qq"><img src="data:image/png;base64,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" alt=""></li>
+            <li data-share="WeChatFriends"><img src="data:image/png;base64,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" alt=""></li>
+        </ul>
+    </div>
+    <div class="part part-rule">
+        <h1></h1>
+        <ul>
+            <li>
+                1 所有微米登录用户都可以领1颗可以产金币的小树哟~
+            </li>
+            <li>
+                2 种树之后每天都会成长出最低90金币，记得
+                每天都要来收取哦~
+            </li>
+            <li>
+                3 水滴能让小树茁壮成长，记得每天领取并浇
+                水，拿到的金币数会翻倍哦~
+            </li>
+            <li>
+                4 收取的金币会直接发放到你的微米账户，可以
+                用于提现哟！
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="loader">
+    <div class="pic">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+
+
+<script src="http://browser.umeweb.com/v6/ume/libs/jquery.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/droi-baas-min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/browser.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/libs/ume.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/tool/vue.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/tool/axios.min.js"></script>
+<script src="http://browser.umeweb.com/v6/ume/js/common/popup.js"></script>
+<!--<script src="./js/index.js"></script>-->
+<script type="text/javascript" src="./js/main.min.js"></script></body>
+<script type="text/javascript">
+  var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " https://");
+  document.write(unescape("%3Cspan id='cnzz_stat_icon_1273327993'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273327993%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+  $('#cnzz_stat_icon_1273327993 img').css('width','0');
+</script>
+</html>
