@@ -1,6 +1,7 @@
 const webpack = require("webpack")
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const cssnano = require('cssnano')
 //const uglify = require('uglifyjs-webpack-plugin') //压缩js插件
 const extractTextPlugin = require("extract-text-webpack-plugin")//css 分离
 //const extractCSS = new extractTextPlugin("css/[name].[hash:6].css")
@@ -23,14 +24,14 @@ module.exports = {
     publicPath:"./",
     path: path.resolve(__dirname + "/dist"),
     //打包后的js文件存放的地方
-    filename: "js/[name].min.js" //打包后的js文件名
+    filename: "js/[name].min.js?[hash:8]" //打包后的js文件名
   },
   plugins: [
     extractCSS,
     extractSCSS,
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.optimize\.css$/g,
-      cssProcessor: require('cssnano'),
+      cssProcessor: cssnano,
       cssProcessorOptions: {
         safe: true,
         autoprefixer: false,
@@ -38,7 +39,24 @@ module.exports = {
       },
       canPrint: true
     }),//压缩css
-    new webpack.optimize.UglifyJsPlugin(),//new uglify(),//压缩js
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        // 在UglifyJs删除没有用到的代码时不输出警告
+        warnings: false,
+        // 删除所有的 `console` 语句，可以兼容ie浏览器
+        drop_console: false,
+        // 内嵌定义了但是只用到一次的变量
+        collapse_vars: true,
+        // 提取出出现多次但是没有定义成变量去引用的静态值
+        reduce_vars: true,
+      },
+      output: {
+        // 最紧凑的输出
+        beautify: false,
+        // 删除所有的注释
+        comments: false,
+      }
+    }),//new uglify(),//压缩js
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template:'src/index.html',

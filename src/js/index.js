@@ -1,30 +1,33 @@
 var data_ac = {
-  "Code": 0,
-  "User": {
-    "water01": 0,
-    "water02": 0,
-    "water03": 0,
-    "water04": 1,
-    "water05": 0,
-    "water06": 0,
-    "watered": 2001,
-    "coin": 0,
-    "isFirstTime": true
-  }
+    "success": true,
+    "data": {
+      "water01":1,
+      "water02":1,
+      "water03":0,
+      "water04":0,
+      "watered":0,
+      "watered_total":0,
+      "point":0,
+      "totalPoint":200365,
+      "isFirstTime":false
+    }
 };
 var isShareClick = false;
 var myCoin = 0;
-// import img1_pop from '../img/img1_pop.png'
-// import img2_pop from '../img/img2_pop.png'
-var img1_pop = './img/img1_pop.png',
-img2_pop = './img/img2_pop.png';
+const crypto = require('crypto')
+const img1_pop = require('../img/img1_pop.png')
+const img2_pop = require('../img/img2_pop.png')
+var appSecrect = "ESTATEACTIVE-V7";
+
+// var img1_pop = './img/img1_pop.png',
+// img2_pop = './img/img2_pop.png';
 
 $(function () {
   // 定时器
   //定义3秒后隐藏loading
   setInterval(function () {
     $(".loader").hide();
-  }, 2000);
+  }, 10);
   IsLoginIn();
 });
 
@@ -34,38 +37,26 @@ function IsLoginIn(){
     var isLoggedIn = window.App.getUserStatus();
     if (isLoggedIn == 0) {
       console.info("正常");
-      getUmeUserInfo(function(){
-        isShareClick = true;
-        getMyInfor();
-      });
+      isShareClick = true;
+      var objectId ="5e0ee2c90f7b5e71934fa84c";
+      checkUid(objectId);
     } else if (isLoggedIn == -1) {
       console.info("未登录");
       $(".tree-box").eq(0).show().siblings('.tree-box').hide();
       clickFn('', false, data_ac.User);
     }
   } catch (e) {
-    /*pc端*/
-    /*data_ac.User.coin = 20;
-    data_ac.User.isFirstTime = false;
-    renderFromData('', data_ac.User);
-    //popUpGetTree('', data_ac.User)*/
-    pcInitUmeUser(function(){
-      getMyInfor();
-    });
-  }
-}
-function getMyInfor() {
-  try {
-    UMeUser.getUMeUser().then(function(data) {
-      var objectId = data.objectId();
-      myCoin = data.Coin === null ? 0 : data.Coin;
-      share('.part-share',data.InviteCode);
-      checkUid(objectId);
-    }).catch(function(err) {
-      debug_print("umeuser " + err);
-    });
-  } catch (e) {
-    debug_print("setInforTop error" + e);
+    /*/*pc端*/
+    var objectId ="";
+    try {
+      objectId = window.App.getObjectId();
+    } catch (e) {
+      objectId ="5e0ee2c90f7b5e71934fa84c";
+      debug_print("getUmeUserInfo 101: " + e);
+    }
+
+    checkUid(objectId);
+    share(".part-share","")
   }
 }
 function renderFromData(objectId,obj){
@@ -74,45 +65,45 @@ function renderFromData(objectId,obj){
     $(".tree-box").eq(0).show().siblings('.tree-box').hide();
   } else {
     /*显示总金币数*/
-    $(".coin-mine").show().find('span').text(myCoin);
+    $(".coin-mine").show().find('span').text(obj.totalPoint);
     /*显示金币数*/
     if(obj.coin>0) {
-      $(".coin").show().attr("data-show","1").attr("data-g",obj.coin);
+      $(".coin").show().attr("data-show","1").attr("data-g",obj.point);
       $(".time-count").hide();
     } else {
       $(".time-count").show();
     }
     /*显示大树小树*/
-    if(obj.watered <= 2000){
+    if(obj.watered_total <= 2000){
       $(".tree-box").eq(1).show().siblings('.tree-box').hide();
-    } else if(obj.watered <= 5000){
+    } else if(obj.watered_total <= 5000){
       $(".tree-box").eq(2).show().siblings('.tree-box').hide();
-    } else if(obj.watered > 5000){
+    } else if(obj.watered_total > 5000){
       $(".tree-box").eq(3).show().siblings('.tree-box').hide();
     }
     /*水滴显示状态*/
-    if(obj.water01 === 0) {
+    if(obj.water01 === 1) {
       $(".water1").show().attr("data-show","1");
 
-      var d = new Date().getDay();
+      var d = new Date().getDay();//1585288567849+(2*24*60*60*1000)
       console.info(d)
       if( (d == 0) || (d == 6)){
         $(".water1").attr("data-g","20g")
       }
     }
-    if(obj.water02 === 0) {
+    if(obj.water02 === 1) {
       $(".water2").show().attr("data-show","1");
     }
-    if(obj.water03 === 0) {
+    if(obj.water03 === 1) {
       $(".water3").show().attr("data-show","1");
     }
-    if(obj.water04 === 0) {
+    if(obj.water04 === 1) {
       $(".water4").show().attr("data-show","1");
     }
-    if(obj.water05 === 0) {
+    if(obj.water05 === 1) {
       $(".water5").show().attr("data-show","1");
     }
-    if(obj.water06 === 0) {
+    if(obj.water06 === 1) {
       $(".water6").show().attr("data-show","1");
     }
     /*距离凌晨00:30时间*/
@@ -233,18 +224,21 @@ function clickFn(objectId, isLogin, obj){
 /*验证objected id*/
 function checkUid(objectId) {
   $.ajax({
-    type: 'GET',
-    url: "http://browser.umeweb.com/cn_ume_api/farm/api/check/"+objectId,
-    cache: false,
-    dataType: 'json',
-    xhrFields: {
-      withCredentials: true
+    type: 'post',
+    url: "http://browser.umeweb.com/ume_user_service/api/v1/active/estate/info",
+    data:{
+      "uid": objectId
     },
     success: function(data) {
       debug_print("checkUid: " + JSON.stringify(data));
-      var obj = data.User? data.User: data_ac.User;
-      debug_print("checkUid: " +objectId);
-      renderFromData(objectId,obj);
+      if(data.success ==true){
+        var obj = data.data? data.data: data_ac.User;
+        debug_print("checkUid: " +objectId);
+        renderFromData(objectId,obj);
+      } else {
+        alert(data.msg)
+      }
+
     },
     error: function(xhr, type) {
       console.info(type);
@@ -253,13 +247,19 @@ function checkUid(objectId) {
 }
 
 function postWater(objectId, idx) {
+  const timestamp = new Date().getTime();
+  let str = objectId+ idx+ +appSecrect+"#*#"+timestamp;
+  let ume_sign = crypto.createHash('md5').update(str, 'utf-8').digest('hex');
+  console.info(ume_sign)
   $.ajax({
     type: 'POST',
-    url: "http://browser.umeweb.com/cn_ume_api/farm/api/watering/"+objectId+"/"+idx,
-    cache: false,
+    url: "http://browser.umeweb.com/ume_user_service/api/v1/active/estate/water",
     dataType: 'json',
-    xhrFields: {
-      withCredentials: true
+    data:{
+      "uid": objectId,
+      "eventId": idx,
+      "sign": ume_sign,
+      "timestamp": timestamp
     },
     success: function(data) {
       console.info(data);
@@ -273,11 +273,13 @@ function postCoin(objectId) {
 
   $.ajax({
     type: 'POST',
-    url: "http://browser.umeweb.com/cn_ume_api/farm/api/exchange/"+objectId,
-    cache: false,
+    url: "http://browser.umeweb.com/ume_user_service/api/v1/active/estate/coin",
     dataType: 'json',
-    xhrFields: {
-      withCredentials: true
+    data:{
+      "uid": objectId,
+      "reward": 0,
+      "sign":"5b63b4ed4502ac826f26058e2ee2aeaa",
+      "timestamp": new Date().getTime()
     },
     success: function(data) {
       console.info(data);
@@ -470,132 +472,6 @@ function deletePop() {
   document.body.removeChild(popMask);
   $("body").css({
     "overflow": "auto"
-  });
-}
-function getUmeUserInfo(callback) {
-  // 获取token和objID
-  var token = "";
-  var objectId = "";
-  //获取token
-  try {
-    token = window.App.getToken(); //需要确认
-    objectId = window.App.getObjectId();
-  } catch (e) {
-    debug_print("getUmeUserInfo 101: " + e);
-  }
-  debug_print("token: " + token +" objectId: "+objectId);
-  // 初始化objID
-  if (token != "" && objectId != "") {
-    UMeUser.initUser(token, objectId).then(function (init_user) {
-      debug_print("linitUser user: " + JSON.stringify(init_user));
-      postDid(init_user.InviteCode)
-      callback(init_user);
-    }).catch (function (err) {
-      if (err._code == "30002") {
-        debug_print("linitUser user: 30002" + JSON.stringify(err));
-        getume(function (user) {
-        });
-      } else if (err._code == "1040006") {
-        getume(function (user) {
-          if (user != null) {
-            user.logout().then(function (user_logout) {
-              debug_print("logout user: " + JSON.stringify(user_logout));
-              getUmeUserInfo();
-            }).catch (function (err) {
-              debug_print("104" + err);
-            });
-          }
-        });
-      }
-      callback(null);
-    });
-  } else {
-    debug_print("getUmeUserInfo 103: " + e);
-    callback(null);
-  }
-
-  function getume(callback) {
-    // 获取umeuser
-    try {
-      UMeUser.getUMeUser().then(function (data) {
-        debug_print("getume() common" + JSON.stringify(data));
-        postDid(data.InviteCode)
-        callback(data);
-      }).catch (function (e) {
-        debug_print("getume() common error: " + e);
-        callback(null);
-      });
-    } catch (e) {
-      debug_print("getUmeUserInfo 102: " + e);
-      callback(null);
-    }
-
-  }
-}
-
-/*pc端测试*/
-function pcInitUmeUser(callback) {
-  var token = "6637ec00088844bc",
-    objectId = "74f14d5d8c12d3fa7e999e66";
-  UMeUser.initUser(token, objectId).then(function (init_user) {
-    debug_print("linitUser user: " + JSON.stringify(init_user));
-    postDid(init_user.InviteCode)
-    callback(init_user);
-  }).catch (function (err) {
-    debug_print("linitUser user err: " + err);
-    if (err._code == "30002") {
-      getume(function (user) {
-      });
-    } else if (err._code == "1040006") {
-      getume(function (user) {
-        if (user != null) {
-          user.logout().then(function (user_logout) {
-            debug_print("logout user: " + JSON.stringify(user_logout));
-            pcInitUmeUser();
-          }).catch (function (err) {
-            debug_print("104" + err);
-          });
-        }
-      });
-    }
-    callback(null);
-  });
-
-  function getume(callback) {
-    // 获取umeuser
-    try {
-      UMeUser.getUMeUser().then(function (data) {
-        debug_print("getume() " + JSON.stringify(data));
-        postDid(data.InviteCode)
-        callback(data);
-      }).catch (function (e) {
-        debug_print("getume() error: " + e);
-        callback(null);
-      });
-    } catch (e) {
-      debug_print("getUmeUserInfo 102: " + e);
-      callback(null);
-    }
-
-  }
-}
-function postDid(ic) {
-  var url = "http://browser.umeweb.com/cn_ume_api/device/api/v1/save";
-  var did = '';
-  try {
-    did = window.App.getUUID();
-  } catch (e_we) {
-    debug_print(e_we);
-    did = localStorage.getItem('did');
-  }
-  debug_print("ic:" + ic + "  did: " + did);
-  axios.post(url, { //post是用对象传值
-    ic: ic,
-    did: did
-  }).then(function (response) {
-    console.log(response);
-  }).catch(function (error) {
-    console.log(error);
   });
 }
 function share(objstr,inviteCode) {

@@ -1,0 +1,79 @@
+
+*{
+    padding:0;
+    margin:0;
+}
+/* 公用弹框 */
+.popMask{
+    position: fixed;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(34,34,35,0.7);
+    z-index:100;
+}
+.popUp{
+    position:fixed;
+    width:100%;
+    min-height:5.778rem;
+    /* border:1px solid #f2f5f7; */ 
+    left:50%;
+    top:50%;
+    margin-left:-6.6667rem;
+    margin-top:-6.6667rem;
+    z-index: 101;
+    /* background: #fff; */
+    border-radius:0.1778rem;
+    -webkit-opacity: 0;  
+    -moz-opacity: 0;   
+    opacity: 0;
+}
+.popUp_c{
+    width:96%;
+    margin-left:2%; 
+    height:100%;
+    text-align: center;
+    background-color: #fff;
+    border-radius: .26667rem;
+    position:relative;
+}
+.popUp h2{
+    height:0;
+    border-radius:0.1778rem 0.1778rem 0 0;
+}
+.popUp_cont{
+    /* word-wrap:break-word; */
+    /* white-space:normal; */
+    /* word-break:break-all; */
+}
+.popUp_cont div.one_w{
+    font-size: 0.8rem;
+    height:3.77778rem;
+    line-height: 3.777778rem;
+    border-bottom:0.01111rem solid #efefef;
+}
+.popUp_cont div.two_w{
+    font-size: 0.8rem;
+    padding:0 0.4rem;
+    height:3.77778rem;
+    line-height: 1.88889rem;
+    border-bottom:0.01111rem solid #efefef;
+}
+.popUp_close{
+    width:1.1111rem;
+    height:1.1111rem;   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

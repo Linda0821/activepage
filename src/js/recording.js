@@ -5,38 +5,19 @@ $(function () {
     checkUid(objectId);
   } catch(e){
     debug_print(e);
-    checkUid('0f1c4e2aa4cd1a8a7977f324');//0f1c4e2aa4cd1a8a7977f324
+    getWaterRecording("5e0ee2c90f7b5e71934fa84c")
   }
 
 });
-
-/*验证objected id*/
-function checkUid(objectId) {
-  $.ajax({
-    type: 'GET',
-    url: "http://browser.umeweb.com/cn_ume_api/farm/api/check/"+objectId,
-    cache: false,
-    dataType: 'json',
-    xhrFields: {
-      withCredentials: true
-    },
-    success: function(data) {
-      debug_print("checkUid: " + JSON.stringify(data));
-      getWaterRecording(objectId)
-    },
-    error: function(xhr, type) {
-      debug_print(type);
-    }
-  });
-}
 function getWaterRecording(objectId) {
   $.ajax({
-    type: 'get',
-    url: "http://browser.umeweb.com/cn_ume_api/farm/api/history/"+objectId,
-    cache: false,
+    type: 'POST',
+    url: "http://browser.umeweb.com/ume_user_service/api/v1/active/estate/recording",
     dataType: 'json',
-    xhrFields: {
-      withCredentials: true
+    data:{
+      "uid": objectId,
+      "offset":0,
+      "limit":100
     },
     success: function(data) {
       debug_print("getWaterRecording: " + JSON.stringify(data));
