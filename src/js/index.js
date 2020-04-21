@@ -67,7 +67,7 @@ function renderFromData(objectId,obj){
     /*显示总金币数*/
     $(".coin-mine").show().find('span').text(obj.totalPoint);
     /*显示金币数*/
-    if(obj.coin>0) {
+    if(obj.point>0) {
       $(".coin").show().attr("data-show","1").attr("data-g",obj.point);
       $(".time-count").hide();
     } else {
@@ -170,16 +170,16 @@ function clickFn(objectId, isLogin, obj){
     } else {
       switch(parseInt(n)){
         case 0:
-          window.location.href = 'http://browser.umeweb.com/v6/ume/wealth.html';
+          window.location.href = 'http://browser.umeweb.com/v7/ume/index.html';
           break;
         case 1:
-          window.location.href = 'http://browser.umeweb.com/v6/ume/www/task.html';
+          window.location.href = 'http://browser.umeweb.com/v7/ume/task.html';
           break;
         case 2:
           goToTab1();
           break;
         case 3:
-          window.location.href = 'http://browser.umeweb.com/v6/ume/active/20180621/index.html';
+          window.location.href = 'http://browser.umeweb.com/v7/ume/index.html';
           break;
         default : break;
       }
@@ -213,7 +213,14 @@ function clickFn(objectId, isLogin, obj){
     //if(objectId.length<=0) return;
     var self = $(this);
     self.css('animation', 'drop 1s ease-in 0s 1 normal none running');
-    postCoin(objectId);
+    var objectId ="";
+    try {
+      objectId = window.App.getObjectId();
+    } catch (e) {
+      objectId ="5e0ee2c90f7b5e71934fa84c";
+      debug_print("getUmeUserInfo 101: " + e);
+    }
+    postCoin(objectId,$(".coin").attr("data-g"));
     setTimeout(function () {
       self.hide();
       $(".time-count").show();
@@ -269,17 +276,19 @@ function postWater(objectId, idx) {
     }
   });
 }
-function postCoin(objectId) {
-
+function postCoin(objectId,reward) {
+  const timestamp = new Date().getTime();
+  let str = objectId+ reward+ +appSecrect+"#*#"+timestamp;
+  let ume_sign = crypto.createHash('md5').update(str, 'utf-8').digest('hex');
   $.ajax({
     type: 'POST',
     url: "http://browser.umeweb.com/ume_user_service/api/v1/active/estate/coin",
     dataType: 'json',
     data:{
       "uid": objectId,
-      "reward": 0,
-      "sign":"5b63b4ed4502ac826f26058e2ee2aeaa",
-      "timestamp": new Date().getTime()
+      "reward": reward,
+      "sign": ume_sign,
+      "timestamp": timestamp
     },
     success: function(data) {
       console.info(data);

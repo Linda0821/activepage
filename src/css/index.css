@@ -808,6 +808,7 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
     top:40%;
     left:25%;
     animation: upToDown-1 2.72778s infinite ease-in;
+    z-index:21;
 }
 .water-wrap .coin:before{
     content: attr(data-g);
@@ -1100,7 +1101,7 @@ div.part ul li{
     text-decoration: underline;
 }
 .part-share{
-    top:520px;
+    top:515px;
 }
 .part-share ul{
     width:280px;
