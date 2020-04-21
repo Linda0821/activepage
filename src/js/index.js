@@ -151,7 +151,7 @@ function clickFn(objectId, isLogin, obj){
     if(!isLogin){
       getToLogin();
     } else {
-      window.location.href = 'http://browser.umeweb.com/v6/ume/www/task.html';
+      window.location.href = 'http://browser.umeweb.com/v7/ume/task.html';
     }
   });
   $(".recording-btn").unbind("click").click(function(){
