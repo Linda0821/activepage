@@ -46,8 +46,8 @@ function renderWaterRecording(data){
       case 2: text = getLocalTime(data[i].time)+' 通过签到获得'+data[i].reward+'g水滴'; break;
       case 3: text = getLocalTime(data[i].time)+' 通过阅读新闻获得'+data[i].reward+'g水滴'; break;
       case 4: text = getLocalTime(data[i].time)+' 通过连续登录3天获得'+data[i].reward+'g水滴'; break;
-      case 5: text = getLocalTime(data[i].time)+' 通过周年庆抽奖活动获得'+data[i].reward+'g水滴'; break;
-      case 6: text = getLocalTime(data[i].time)+' 通过周年庆抽奖活动获得'+data[i].reward+'g水滴'; break;
+      case 5: text = getLocalTime(data[i].time)+' 通过抽奖活动获得'+data[i].reward+'g水滴'; break;
+      case 6: text = getLocalTime(data[i].time)+' 通过抽奖活动获得'+data[i].reward+'g水滴'; break;
       default: break;
     }
     debug_print(text);
