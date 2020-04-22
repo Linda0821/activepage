@@ -46,10 +46,11 @@ function IsLoginIn(){
         debug_print("getUmeUserInfo 101: " + e);
       }
       checkUid(objectId);
+      share(".part-share");
     } else if (isLoggedIn == -1) {
       console.info("未登录");
       $(".tree-box").eq(0).show().siblings('.tree-box').hide();
-      clickFn('', false, data_ac.User);
+      clickFn('', false, data_ac.data);
     }
   } catch (e) {
     /*/*pc端*/
@@ -61,7 +62,7 @@ function IsLoginIn(){
       debug_print("getUmeUserInfo 101: " + e);
     }
     checkUid(objectId);
-    share(".part-share","")
+    share(".part-share");
   }
 }
 function renderFromData(objectId,obj){
@@ -236,7 +237,7 @@ function checkUid(objectId) {
     success: function(data) {
       debug_print("checkUid: " + JSON.stringify(data));
       if(data.success ==true){
-        var obj = data.data? data.data: data_ac.User;
+        var obj = data.data? data.data: data_ac.data;
         debug_print("checkUid: " +objectId);
         renderFromData(objectId,obj);
       } else {
@@ -480,12 +481,12 @@ function deletePop() {
     "overflow": "auto"
   });
 }
-function share(objstr,inviteCode) {
+function share(objstr) {
   console.info($(objstr));
-  $(objstr+' ul.share li').click(function () {
+  $(objstr+' ul.share li').unbind("click").click(function () {
     console.info($(this).attr("data-share"));
     var num = $(this).attr("data-share");
-    var url = "http://browser.umeweb.com/v6/ume/web/redbag.html?ic=" + inviteCode;
+    var url = "http://browser.umeweb.cn/";
     try {
       debug_print("邀请收徒" + url);
       // console.info("邀请收徒"+url);
@@ -546,10 +547,16 @@ window.onRefreshPage = function() {
     var isLoggedIn = window.App.getUserStatus();
     if (isLoggedIn == 0) {
       debug_print("shuaxin true");
-      getUmeUserInfo(function(){
-        isShareClick = true;
-        getMyInfor();
-      });
+      isShareClick = true;
+      var objectId ="";
+      try {
+        objectId = window.App.getObjectId();
+      } catch (e) {
+        objectId ="5e0eadd40f7b5e71934fa849";
+        debug_print("getUmeUserInfo 101: " + e);
+      }
+      checkUid(objectId);
+      share(".part-share");
     } else if (isLoggedIn == -1) {
       debug_print("shuaxin false");
     }

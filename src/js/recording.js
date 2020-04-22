@@ -2,7 +2,7 @@
 $(function () {
   try{
     var objectId = window.App.getObjectId();
-    checkUid(objectId);
+    getWaterRecording(objectId)
   } catch(e){
     debug_print(e);
     getWaterRecording("5e0eadd40f7b5e71934fa849") // //5e0ee2c90f7b5e71934fa84c
