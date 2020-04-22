@@ -5,7 +5,7 @@ $(function () {
     checkUid(objectId);
   } catch(e){
     debug_print(e);
-    getWaterRecording("5e0ee2c90f7b5e71934fa84c") //5e0eadd40f7b5e71934fa849
+    getWaterRecording("5e0eadd40f7b5e71934fa849") // //5e0ee2c90f7b5e71934fa84c
   }
 
 });
@@ -21,11 +21,12 @@ function getWaterRecording(objectId) {
     },
     success: function(data) {
       debug_print("getWaterRecording: " + JSON.stringify(data));
-      renderWaterRecording(data)
-      // if(data.Code === '0'){
-      //   debug_print("getWaterRecording: " + JSON.stringify(data.logs));
-      //   renderWaterRecording(data)
-      // }
+      if(data.success == true){
+        debug_print("getWaterRecording: " + JSON.stringify(data.logs));
+        renderWaterRecording(data.logs)
+      } else {
+        $(".no-data").show();
+      }
     },
     error: function(xhr, type) {
       debug_print(type);
@@ -43,7 +44,7 @@ function renderWaterRecording(data){
       case 0: text = getLocalTime(data[i].time)+' 收获了'+data[i].reward+'金币'; break;
       case 1: text = getLocalTime(data[i].time)+' 通过登录获得'+data[i].reward+'g水滴';debug_print("data.logs.event: "+text); break;
       case 2: text = getLocalTime(data[i].time)+' 通过签到获得'+data[i].reward+'g水滴'; break;
-      case 3: text = getLocalTime(data[i].time)+' 通过连续3天登录'+data[i].reward+'g水滴'; break;
+      case 3: text = getLocalTime(data[i].time)+' 通过阅读新闻获得'+data[i].reward+'g水滴'; break;
       case 4: text = getLocalTime(data[i].time)+' 通过连续登录3天获得'+data[i].reward+'g水滴'; break;
       case 5: text = getLocalTime(data[i].time)+' 通过周年庆抽奖活动获得'+data[i].reward+'g水滴'; break;
       case 6: text = getLocalTime(data[i].time)+' 通过周年庆抽奖活动获得'+data[i].reward+'g水滴'; break;

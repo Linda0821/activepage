@@ -27,7 +27,7 @@ $(function () {
   //定义3秒后隐藏loading
   setInterval(function () {
     $(".loader").hide();
-  }, 10);
+  }, 1500);
   IsLoginIn();
 });
 
@@ -38,7 +38,13 @@ function IsLoginIn(){
     if (isLoggedIn == 0) {
       console.info("正常");
       isShareClick = true;
-      var objectId ="5e0ee2c90f7b5e71934fa84c";
+      var objectId ="";
+      try {
+        objectId = window.App.getObjectId();
+      } catch (e) {
+        objectId ="5e0eadd40f7b5e71934fa849";
+        debug_print("getUmeUserInfo 101: " + e);
+      }
       checkUid(objectId);
     } else if (isLoggedIn == -1) {
       console.info("未登录");
@@ -51,10 +57,9 @@ function IsLoginIn(){
     try {
       objectId = window.App.getObjectId();
     } catch (e) {
-      objectId ="5e0ee2c90f7b5e71934fa84c";
+      objectId ="5e0eadd40f7b5e71934fa849";
       debug_print("getUmeUserInfo 101: " + e);
     }
-
     checkUid(objectId);
     share(".part-share","")
   }
@@ -96,15 +101,14 @@ function renderFromData(objectId,obj){
     }
     if(obj.water03 === 1) {
       $(".water3").show().attr("data-show","1");
+      var d = new Date().getDay();//1585288567849+(2*24*60*60*1000)
+      console.info(d)
+      if( (d == 0) || (d == 6)){
+        $(".water1").attr("data-g","20g")
+      }
     }
     if(obj.water04 === 1) {
       $(".water4").show().attr("data-show","1");
-    }
-    if(obj.water05 === 1) {
-      $(".water5").show().attr("data-show","1");
-    }
-    if(obj.water06 === 1) {
-      $(".water6").show().attr("data-show","1");
     }
     /*距离凌晨00:30时间*/
     var timeNow = new Date() / 1000;
@@ -213,13 +217,6 @@ function clickFn(objectId, isLogin, obj){
     //if(objectId.length<=0) return;
     var self = $(this);
     self.css('animation', 'drop 1s ease-in 0s 1 normal none running');
-    var objectId ="";
-    try {
-      objectId = window.App.getObjectId();
-    } catch (e) {
-      objectId ="5e0ee2c90f7b5e71934fa84c";
-      debug_print("getUmeUserInfo 101: " + e);
-    }
     postCoin(objectId,$(".coin").attr("data-g"));
     setTimeout(function () {
       self.hide();

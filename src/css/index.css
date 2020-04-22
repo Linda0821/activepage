@@ -1178,12 +1178,12 @@ div.part ul li{
     background-size: 8px 8px;
 }
 .coin-mine{
-    width:160px;
     height:26px;
     font-size: 12px;
     color:#fff;
     background-color: rgba(111,176,210,0.7);
     border-radius: 10px;
+    padding: 0 10px;
     position: absolute;
     top:2%;
     left:-2%;
