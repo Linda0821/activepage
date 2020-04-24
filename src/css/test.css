@@ -8,7 +8,7 @@ body{
 .game {
     margin: 0 auto;
     width: 7.2rem;
-    min-height: 11rem;
+    min-height: 14rem;
     background: #FF685D url(../img/bg.png) center top no-repeat;
     background-size: 7.2rem auto;
     box-sizing: border-box;
@@ -16,7 +16,7 @@ body{
 .game .wheel-box {
     width: 6.72rem;
     height: 6.72rem;
-    margin: 4.4rem auto 0;
+    margin: 4rem auto 0;
     position: relative; }
 .game .wheel-box #wheel {
     width: 100%;

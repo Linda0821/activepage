@@ -21,7 +21,7 @@ var prize = [
     des: '您可在摇钱树——金币庄园查看。',
     num: 2,
     idx: 1,
-    prize: '100水滴',
+    prize: '60水滴',
     className: 'img-water',
     rate_r: 0.25,
     rate_e: 0.20
@@ -30,7 +30,7 @@ var prize = [
     des: '您可在我的财富——金币查看。',
     num: 3,
     idx: 0,
-    prize: '100金币',
+    prize: '60金币',
     className: 'img-coin',
     rate_r: 0.25,
     rate_e: 0.25
@@ -39,7 +39,7 @@ var prize = [
     des: '您可在我的财富——金币查看。',
     num: 4,
     idx: 3,
-    prize: '200金币',
+    prize: '80金币',
     className: 'img-coin',
     rate_r: 0.15,
     rate_e: 0.20,
@@ -48,7 +48,7 @@ var prize = [
     des: '您可在我的财富——零钱查看。',
     num: 5,
     idx: 5,
-    prize: '1元红包',
+    prize: '0.88元红包',
     className: 'img-bag',
     rate_r: 0.01,
     rate_e: 0,
@@ -57,7 +57,7 @@ var prize = [
     des: '您可在我的财富——零钱查看。',
     num: 6,
     idx: 2,
-    prize: '2元红包',
+    prize: '1.21元红包',
     className: 'img-bag',
     rate_r: 0.005,
     rate_e: 0
@@ -170,7 +170,10 @@ function initLoggedIn() {
     }
   } catch (e) {
     debug_print("isLoggedIn " + e);
-    loginInFn();
+    //loginInFn();
+    luckDrawCount = 5; //测试
+    luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
+    clickFn(true,'', [1, 2, 3, 4, 7, 5, 6]);//
   }
 }
 function loginInFn(){
@@ -204,9 +207,9 @@ function checkUid(objectId) {
       if (data.Code == 0) {
         debug_print("sucess playNum :" + data.Result.lottery_balance);
         luckDrawCount = data.Result.lottery_balance;//测试
-        //luckDrawCount = 5; //测试
+        luckDrawCount = 5; //测试
         luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-        clickFn(true, objectId,data.Result.lottery_prize);
+        clickFn(true, objectId,data.Result.lottery_prize);//[1, 2, 3, 4, 7, 5, 6]
       } else {
         busyPopup(data.Code);
       }

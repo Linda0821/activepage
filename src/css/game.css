@@ -1,88 +1,65 @@
-/*init*/
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
-    margin: 0;
-    padding: 0;
+*{
+    padding:0;
+    margin:0;
 }
-
-body {
-    background: #fff;
-    color: #555;
-    font-size: 14px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+body{
+    background-image: linear-gradient(to right, #f29030, #ffc062 20%, #ffc062 80%, #f29030);
 }
-
-td, th, caption {
-    font-size: 14px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
-    font-size: 100%;
-}
-
-address, caption, cite, code, dfn, em, strong, th, var {
-    font-style: normal;
-    font-weight: normal;
-}
-
-a {
-    color: #555;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-img {
-    border: none;
-}
-
-ol, ul, li {
-    list-style: none;
-}
-
-input, textarea, select, button {
-    font: 14px Verdana, Helvetica, Arial, sans-serif;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-html {
-    overflow-y: scroll;
-    background-color: #FF685D;
-}
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.clearfix {
-    *zoom: 1;
-}
-
-html {
-    display: block;
-    font-size:50px;
-}
-
-body {
-    display: block;
-    background-color: #FF685D;
+.game {
+    margin: 0 auto;
+    width: 7.2rem;
+    min-height: 11rem;
+    background: url(../img/bg.png) center top no-repeat;
+    background-size: 7.2rem auto;
+    box-sizing: border-box;
+    overflow: hidden; }
+.game .wheel-box {
+    width: 6.72rem;
+    height: 6.72rem;
+    margin: 4rem auto 0;
+    position: relative; }
+.game .wheel-box #wheel {
+    width: 100%;
     height: 100%;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    left: 0;
+    background: url(../img/pan.png) center center no-repeat;
+    background-size: 6.72rem 6.72rem; }
+.game .wheel-box #arrow {
+    width: 1.78rem;
+    height: 2.07rem;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    overflow: hidden;
-    overflow-y: auto;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
+    background: url(../img/zhen.png) center center no-repeat;
+    background-size: 1.78rem 2.07rem; }
+.game .luckDrawCount {
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.3rem;
+    font-weight: 600;
+    margin: 0.7rem auto;
+    z-index: 99; }
+.game .luckDrawCount span {
+    color: #ffffff; }
+.game .fixed-btn {
+    width: 1.4rem;
+    position: fixed;
+    top: 0;
+    right:0;
+}
+.game .fixed-btn img {
+    float: right;
+    margin-top: .1rem;
+    width: 1.4rem;
 }
 /* 公用弹框 */
 .popMask{
@@ -120,15 +97,12 @@ body {
     height:0;
     border-radius:5px 5px 0 0;
 }
-#pop_game .notice span{
-    display: block;
-    margin: 0 auto .2rem;
-}
 /*抽奖结果上传失败弹框*/
 .notice_pop {
     text-align: center;
     font-size: 0.3rem;
-    padding: 0.5rem 0.2rem;
+    line-height: 1rem;
+    padding: 0.2rem;
     border-bottom: 1px solid #efefef;
 }
 #submitBtn {
@@ -193,11 +167,10 @@ section.btn{
         transform: translateY(0) ;
     }
 }
-
-
-
-
-
-
-
+#cnzz_stat_icon_1273327993 img{
+    width:0;
+}
+a{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 
