@@ -42,7 +42,7 @@ function IsLoginIn(){
       try {
         objectId = window.App.getObjectId();
       } catch (e) {
-        objectId ="5e0eadd40f7b5e71934fa849";
+        objectId ="5e0ee2c90f7b5e71934fa84c";
         debug_print("getUmeUserInfo 101: " + e);
       }
       checkUid(objectId);
@@ -58,7 +58,7 @@ function IsLoginIn(){
     try {
       objectId = window.App.getObjectId();
     } catch (e) {
-      objectId ="5e0eadd40f7b5e71934fa849";
+      objectId ="5e0ee2c90f7b5e71934fa84c";
       debug_print("getUmeUserInfo 101: " + e);
     }
     checkUid(objectId);
@@ -72,6 +72,7 @@ function renderFromData(objectId,obj){
   } else {
     /*显示总金币数*/
     $(".coin-mine").show().find('span').text(obj.totalPoint);
+    myCoin = obj.totalPoint;
     /*显示金币数*/
     if(obj.point>0) {
       $(".coin").show().attr("data-show","1").attr("data-g",obj.point);
@@ -87,12 +88,12 @@ function renderFromData(objectId,obj){
     } else if(obj.watered_total > 5000){
       $(".tree-box").eq(3).show().siblings('.tree-box').hide();
     }
+
+    var d = new Date().getDay();//1585288567849+(2*24*60*60*1000)
     /*水滴显示状态*/
     if(obj.water01 === 1) {
       $(".water1").show().attr("data-show","1");
-
-      var d = new Date().getDay();//1585288567849+(2*24*60*60*1000)
-      console.info(d)
+      console.info("water1 d:"+d);
       if( (d == 0) || (d == 6)){
         $(".water1").attr("data-g","20g")
       }
@@ -102,10 +103,9 @@ function renderFromData(objectId,obj){
     }
     if(obj.water03 === 1) {
       $(".water3").show().attr("data-show","1");
-      var d = new Date().getDay();//1585288567849+(2*24*60*60*1000)
-      console.info(d)
+      console.info("water3 d:"+d);
       if( (d == 0) || (d == 6)){
-        $(".water1").attr("data-g","20g")
+        $(".water3").attr("data-g","20g")
       }
     }
     if(obj.water04 === 1) {
