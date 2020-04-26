@@ -7,10 +7,19 @@ var gameState = false;  //  游戏状态
 /*50水滴=1 / 100水滴=2 / 100金币=3 / 200金币=4 / 1元红包=5 / 2元红包=6 / 这次没有中奖哦=7*/
 var prize = [
   {
+    title: '',
+    des: '很遗憾，未中奖，下次加油！',
+    num: 0,
+    idx: 1,
+    prize: '这次没有中奖哦',
+    rate_r: 0.085,
+    rate_e: 0.10,
+  },
+  {
     title: '中奖啦!',
     des: '您可在摇钱树——金币庄园查看。',
     num: 1,
-    idx: 6,
+    idx: 2,
     prize: '50g水滴',
     className: 'img-water',
     rate_r: 0.25,
@@ -20,7 +29,7 @@ var prize = [
     title: '中奖啦!',
     des: '您可在摇钱树——金币庄园查看。',
     num: 2,
-    idx: 1,
+    idx: 0,
     prize: '60水滴',
     className: 'img-water',
     rate_r: 0.25,
@@ -29,7 +38,7 @@ var prize = [
     title: '中奖啦!',
     des: '您可在我的财富——金币查看。',
     num: 3,
-    idx: 0,
+    idx: 3,
     prize: '60金币',
     className: 'img-coin',
     rate_r: 0.25,
@@ -38,7 +47,7 @@ var prize = [
     title: '中奖啦!',
     des: '您可在我的财富——金币查看。',
     num: 4,
-    idx: 3,
+    idx: 6,
     prize: '80金币',
     className: 'img-coin',
     rate_r: 0.15,
@@ -56,21 +65,13 @@ var prize = [
     title: '中奖啦!',
     des: '您可在我的财富——零钱查看。',
     num: 6,
-    idx: 2,
+    idx: 4,
     prize: '1.21元红包',
     className: 'img-bag',
     rate_r: 0.005,
     rate_e: 0
   },
-  {
-    title: '',
-    des: '很遗憾，未中奖，下次加油！',
-    num: 7,
-    idx: 4,
-    prize: '这次没有中奖哦',
-    rate_r: 0.085,
-    rate_e: 0.10,
-  }
+
 ];
 
 // 计算归着，每次抽奖最终rotateZ值 + 相应的奖品值位置 = (rotateZCount + rotateZPosition[0]) 等于一等奖
@@ -81,7 +82,7 @@ var game = {
   rotateZ: 360,              //  一圈360deg
   rotateZCount: 10,          //  旋转圈数的倍数
   runTime: 6,                //  游戏过度时间
-  rotateZPosition: [330, 286, 230, 180, 128, 75, 25],
+  rotateZPosition: [25, 75, 128, 180, 230, 285, 330],//[330, 286, 230, 180, 128, 75, 25]
   gameAction: function (objectId, rotateZPositionIndex) {// 运行游戏
     // 转盘位置计算规则 一圈360deg 乘以 10圈，加上 奖品 rotateZ值，再减去上一次中奖rotateZ值
     var toRotateZCount = (this.rotateZPositionCount - this.preUseRotateZ + this.rotateZPosition[rotateZPositionIndex]) + this.rotateZ * this.rotateZCount; // 达到圈数位置
@@ -100,42 +101,25 @@ var game = {
   gameRandomPrize: function(objectId, arr) {
     // 模拟抽奖
     var prizeNum = 4;
-    var random = Math.random() * 200;
+    var random = Math.random() * 100;
     var index = parseInt(random) | 0;//中奖物品通过一个随机数生成
     console.info(random + "-----" + index)
-    var temp = [];
-    if (arr.indexOf(5)<0 || arr.indexOf(6)<0) {
-      temp[0] = 200 * (prize[6].rate_e) + 5;
-      temp[1] = temp[0] + 200 * (prize[0].rate_e);
-      temp[2] = temp[1] + 200 * (prize[1].rate_e);
-      temp[3] = temp[2] + 200 * (prize[3].rate_e);
-      console.info("temp 0:"+temp);
-    } else {
-      temp[0] = 200 * (prize[6].rate_r) + 5;
-      temp[1] = temp[0] + 200 * (prize[0].rate_r);
-      temp[2] = temp[1] + 200 * (prize[1].rate_r);
-      temp[3] = temp[2] + 200 * (prize[3].rate_r);
-      console.info("temp 1:"+temp);
-    }
     if (arr.length >1) {
-      if (index >= 0 && index < 1) {
-        prizeNum = arr.indexOf(6)<0 ? 4 : 2;
-      } else if (index < 5) {
-        prizeNum = arr.indexOf(5)<0 ? 4 : 5;
-      } else if (index < temp[0]) {
-        prizeNum = 6;
-      } else if (index < temp[1]) {
-        prizeNum = 0;
-      } else if (index < temp[2]) {
-        prizeNum = 1;
-      } else if (index < temp[3]) {
-        prizeNum = 3;
-      } else {
-        prizeNum = 4;
+      if (index >= 0 && index < 20) {
+        prizeNum = 1;//未中奖
+      } else if (index < 40) {
+        prizeNum = 0;//60水滴
+      } else if (index < 65) {
+        prizeNum = 3;//60金币
+      } else if (index < 80) {
+        prizeNum = 6;//80金币
+      } else if (index < 100) {
+        prizeNum = 2;//50水滴
       }
       console.info("arr.length>1 prizeNum:"+prizeNum);
     }
     game.gameAction(objectId, prizeNum);
+
   }
 }
 
@@ -234,7 +218,11 @@ function checkUid(objectId) {
  * Code=E009(Lottery) 抽奖奖品发放处理失败
  */
 function postCoin(objectId, prizeId,idx) {
-  var url = 'http://browser.umeweb.com/cn_ume_api/anniv/api/play/lottery/'+objectId+'/'+prizeId;
+  luckDrawCount--;  // 游戏次数减一
+  // 页面更新抽奖次数
+  luckDrawCountDom.innerHTML = '抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
+  gameOverPopup(idx);//抽奖结果
+  /*var url = 'http://browser.umeweb.com/cn_ume_api/anniv/api/play/lottery/'+objectId+'/'+prizeId;
   debug_print(objectId + "  coin：  " + prizeId);
   var api = axios.create({
     withCredentials: true
@@ -252,7 +240,7 @@ function postCoin(objectId, prizeId,idx) {
     }
   }).catch(function (error) {
     console.log(error);
-  });
+  });*/
 }
 
 function clickFn(isLogin,objectId,arr){
@@ -358,11 +346,11 @@ function gameOverPopup(num) {
   $("#pop_game button").click(function () {
     deletePop();
     if (prize[num].className == "img-water") {
-      window.location.href = "../estate/";
+      window.location.href = "http://browser.umeweb.com/v7/ume/active/estate/index.html";
     } else if (prize[num].className == "img-coin" || prize[num].className == "img-bag") {
-      window.location.href = "../../wealth.html";
+      window.location.href = "http://browser.umeweb.com/v7/ume/index.html";
     } else {
-      window.location.href = "../anniversary/";
+      window.location.href = "http://browser.umeweb.com/v7/ume/index.html";
     }
   });
 
