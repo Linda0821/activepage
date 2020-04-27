@@ -102,7 +102,7 @@ var game = {
       postCoin(objectId, prize[rotateZPositionIndex].num, prize[rotateZPositionIndex].idx)
     }, this.runTime * 1000);
   },
-  gameRandomPrize: function(objectId) {
+  gameRandomPrize: function(objectId,arr) {
     // 模拟抽奖
     var prizeNum = 4;
     var random = Math.random() * 100;
@@ -111,13 +111,16 @@ var game = {
     if (index >= 0 && index < 20) {
       prizeNum = 1;//未中奖
     } else if (index < 40) {
-      prizeNum = 0;//60水滴
+      //prizeNum = 0;//60水滴
+      prizeNum = arr.indexOf(2)>=0?1:0;
+
     } else if (index < 65) {
       prizeNum = 3;//60金币
     } else if (index < 80) {
       prizeNum = 6;//80金币
     } else if (index < 100) {
-      prizeNum = 2;//50水滴
+      //prizeNum = 2;//50水滴
+      prizeNum = arr.indexOf(1)>=0?3:2;
     }
     game.gameAction(objectId, prizeNum);
 
@@ -164,7 +167,7 @@ function loginInFn(){
     var objectId = window.App.getObjectId();
   } catch (e) {
     debug_print("getUmeUserInfo 101: " + e);
-    var objectId = "5e0ee2c90f7b5e71934fa84c";
+    var objectId = "5e14432348e1f453ed08e526";
   }
   checkUid(objectId);
 }
@@ -190,9 +193,12 @@ function checkUid(objectId) {
         luckDrawCount = luckDrawCount -parseInt(data.data.playNumber)
         // luckDrawCount = 5; //测试
         luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-        clickFn(true, objectId);
+        clickFn(true, objectId,data.data.waterFinishArr);
       } else {
         busyPopup(data.msg,2.44444);
+        /*luckDrawCount = 5; //测试
+        luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
+        clickFn(true, objectId,[1,2]);*/
       }
     },
     error: function(xhr, type) {
@@ -225,7 +231,7 @@ function postCoin(objectId, prizeId,idx) {
     url: url,
     data:{
       "uid": objectId,
-      "eventId": prizeId,
+      "eventId": parseInt(prizeId),
       "sign": ume_sign,
       "timestamp":timestamp
     },
@@ -254,7 +260,7 @@ function clickFn(isLogin,objectId,arr){
       if (gameState || luckDrawCount <= 0) return;
       gameState = true; // 设置游戏当前状态
       // run game
-      game.gameRandomPrize(objectId, arr)
+      game.gameRandomPrize(objectId,arr)
     } else{
       try {
         window.App.login();
