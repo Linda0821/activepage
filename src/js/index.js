@@ -5,6 +5,8 @@ var data_ac = {
       "water02":1,
       "water03":0,
       "water04":0,
+      "water05":0,
+      "water06":0,
       "watered":0,
       "watered_total":0,
       "point":0,
@@ -110,6 +112,12 @@ function renderFromData(objectId,obj){
     }
     if(obj.water04 === 1) {
       $(".water4").show().attr("data-show","1");
+    }
+    if(obj.water05 === 1) {
+      $(".water5").show().attr("data-show","1");
+    }
+    if(obj.water06 === 1) {
+      $(".water6").show().attr("data-show","1");
     }
     /*距离凌晨00:30时间*/
     var timeNow = new Date() / 1000;
