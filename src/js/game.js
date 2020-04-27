@@ -4,6 +4,10 @@ var luckDrawCountDom = document.querySelector('.luckDrawCount'); // 抽奖次数
 var luckDrawCount = 5;   //  剩余抽奖次数（页面显示）
 var gameState = false;  //  游戏状态
 
+var appSecrect = "PRIZEACTIVE-V7";
+
+const crypto = require('crypto')
+
 /*50水滴=1 / 100水滴=2 / 100金币=3 / 200金币=4 / 1元红包=5 / 2元红包=6 / 这次没有中奖哦=7*/
 var prize = [
   {
@@ -98,25 +102,22 @@ var game = {
       postCoin(objectId, prize[rotateZPositionIndex].num, prize[rotateZPositionIndex].idx)
     }, this.runTime * 1000);
   },
-  gameRandomPrize: function(objectId, arr) {
+  gameRandomPrize: function(objectId) {
     // 模拟抽奖
     var prizeNum = 4;
     var random = Math.random() * 100;
     var index = parseInt(random) | 0;//中奖物品通过一个随机数生成
     console.info(random + "-----" + index)
-    if (arr.length >1) {
-      if (index >= 0 && index < 20) {
-        prizeNum = 1;//未中奖
-      } else if (index < 40) {
-        prizeNum = 0;//60水滴
-      } else if (index < 65) {
-        prizeNum = 3;//60金币
-      } else if (index < 80) {
-        prizeNum = 6;//80金币
-      } else if (index < 100) {
-        prizeNum = 2;//50水滴
-      }
-      console.info("arr.length>1 prizeNum:"+prizeNum);
+    if (index >= 0 && index < 20) {
+      prizeNum = 1;//未中奖
+    } else if (index < 40) {
+      prizeNum = 0;//60水滴
+    } else if (index < 65) {
+      prizeNum = 3;//60金币
+    } else if (index < 80) {
+      prizeNum = 6;//80金币
+    } else if (index < 100) {
+      prizeNum = 2;//50水滴
     }
     game.gameAction(objectId, prizeNum);
 
@@ -154,10 +155,7 @@ function initLoggedIn() {
     }
   } catch (e) {
     debug_print("isLoggedIn " + e);
-    //loginInFn();
-    luckDrawCount = 5; //测试
-    luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-    clickFn(true,'', [1, 2, 3, 4, 7, 5, 6]);//
+    loginInFn();
   }
 }
 function loginInFn(){
@@ -166,7 +164,7 @@ function loginInFn(){
     var objectId = window.App.getObjectId();
   } catch (e) {
     debug_print("getUmeUserInfo 101: " + e);
-    var objectId = "74f14d5d8c12d3fa7e999e66";
+    var objectId = "5e0ee2c90f7b5e71934fa84c";
   }
   checkUid(objectId);
 }
@@ -178,29 +176,27 @@ function loginInFn(){
  */
 function checkUid(objectId) {
   $.ajax({
-    type: 'GET',
-    url: "http://browser.umeweb.com/cn_ume_api/anniv/api/check/lottery/" + objectId,
-    dataType: 'json',
-    cache: false,
-    xhrFields: {
-      withCredentials: true
+    type: 'post',
+    url: "http://browser.umeweb.com/ume_user_service/api/v1/active/prize/info",
+    data:{
+      "uid": objectId
     },
-    success: function (data) {
-      debug_print("sucess:" + JSON.stringify(data));
-      debug_print("sucess objectId:" + objectId);
-      if (data.Code == 0) {
-        debug_print("sucess playNum :" + data.Result.lottery_balance);
-        luckDrawCount = data.Result.lottery_balance;//测试
-        luckDrawCount = 5; //测试
+    success: function(data) {
+      debug_print("checkUid: " + JSON.stringify(data));
+      if(data.success ==true){
+        debug_print("sucess playNum :" + data.data.playNumber);
+        luckDrawCount = parseInt(data.data.taskFinishArr.length)+1;//测试
+        debug_print("sucess canPlayNum :" +luckDrawCount);
+        luckDrawCount = luckDrawCount -parseInt(data.data.playNumber)
+        // luckDrawCount = 5; //测试
         luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-        clickFn(true, objectId,data.Result.lottery_prize);//[1, 2, 3, 4, 7, 5, 6]
+        clickFn(true, objectId);
       } else {
-        busyPopup(data.Code);
+        busyPopup(data.msg,2.44444);
       }
-      //postCoin(objectId, 7)
     },
-    error: function (xhr, type) {
-      debug_print(type);
+    error: function(xhr, type) {
+      console.info(type);
     }
   });
 }
@@ -218,29 +214,37 @@ function checkUid(objectId) {
  * Code=E009(Lottery) 抽奖奖品发放处理失败
  */
 function postCoin(objectId, prizeId,idx) {
-  luckDrawCount--;  // 游戏次数减一
-  // 页面更新抽奖次数
-  luckDrawCountDom.innerHTML = '抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-  gameOverPopup(idx);//抽奖结果
-  /*var url = 'http://browser.umeweb.com/cn_ume_api/anniv/api/play/lottery/'+objectId+'/'+prizeId;
-  debug_print(objectId + "  coin：  " + prizeId);
-  var api = axios.create({
-    withCredentials: true
-  });
-  api.post(url).then(function (response) {
-    console.log(response);
-    if (response.data.Code == 0) {
-      luckDrawCount--;  // 游戏次数减一
-      // 页面更新抽奖次数
-      luckDrawCountDom.innerHTML = '抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
-      gameOverPopup(idx);//抽奖结果
-    } else {
-      //gameOverPopup(idx);//抽奖结果
-      busyPopup(response.data.Code);
+  const timestamp = new Date().getTime();
+  let str = objectId+ prizeId+ +appSecrect+"#*#"+timestamp;
+  let ume_sign = crypto.createHash('md5').update(str, 'utf-8').digest('hex');
+  console.info(ume_sign)
+  var url = 'http://browser.umeweb.com/ume_user_service/api/v1/active/prize/post';
+  debug_print(objectId + "  prizeId：  " + prizeId+ "  idx：  " +idx);
+  $.ajax({
+    type: 'post',
+    url: url,
+    data:{
+      "uid": objectId,
+      "eventId": prizeId,
+      "sign": ume_sign,
+      "timestamp":timestamp
+    },
+    success: function(data) {
+      debug_print("checkUid: " + JSON.stringify(data));
+      if(data.success ==true){
+        luckDrawCount--;  // 游戏次数减一
+        // 页面更新抽奖次数
+        luckDrawCountDom.innerHTML = '抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
+        gameOverPopup(idx);//抽奖结果
+      } else {
+        busyPopup(data.msg,2.44444);
+      }
+
+    },
+    error: function(xhr, type) {
+      console.info(type);
     }
-  }).catch(function (error) {
-    console.log(error);
-  });*/
+  });
 }
 
 function clickFn(isLogin,objectId,arr){
@@ -260,12 +264,12 @@ function clickFn(isLogin,objectId,arr){
     }
   });
 }
-function busyPopup(code) {
+function busyPopup(code,h) {
   var p = code ? code:'';
-  var html = '<div class="notice_pop">亲，服务器繁忙（'+p+'），请过一会后再试？</div>';
+  var html = '<div class="notice_pop">'+p+'</div>';
   popup.open({
     width: 5.88889, //设置弹出层宽度，如果不填写为300
-    height: 2.88888, //设置弹出层高度，如果不填写为150
+    height: h, //设置弹出层高度，如果不填写为150
     title: "", //设置标题
     content: html //设置内容
   });
