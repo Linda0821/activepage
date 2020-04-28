@@ -21,7 +21,7 @@ var prize = [
   },
   {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在摇钱树——金币庄园查看。',
+    des: '您可在摇钱树——金币庄园查看。',
     num: 1,
     idx: 2,
     prize: '50g水滴',
@@ -31,7 +31,7 @@ var prize = [
   },
   {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在摇钱树——金币庄园查看。',
+    des: '您可在摇钱树——金币庄园查看。',
     num: 2,
     idx: 0,
     prize: '60水滴',
@@ -40,7 +40,7 @@ var prize = [
     rate_e: 0.20
   }, {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在我的财富——金币查看。',
+    des: '您可在我的财富——金币查看。',
     num: 3,
     idx: 3,
     prize: '60金币',
@@ -49,7 +49,7 @@ var prize = [
     rate_e: 0.25
   }, {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在我的财富——金币查看。',
+    des: '您可在我的财富——金币查看。',
     num: 4,
     idx: 6,
     prize: '80金币',
@@ -58,7 +58,7 @@ var prize = [
     rate_e: 0.20,
   }, {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在我的财富——零钱查看。',
+    des: '您可在我的财富——零钱查看。',
     num: 5,
     idx: 5,
     prize: '0.88元红包',
@@ -67,7 +67,7 @@ var prize = [
     rate_e: 0,
   }, {
     title: '中奖啦!',
-    des: '恭喜您获得,您可在我的财富——零钱查看。',
+    des: '您可在我的财富——零钱查看。',
     num: 6,
     idx: 4,
     prize: '1.21元红包',
@@ -191,7 +191,7 @@ function checkUid(objectId) {
         luckDrawCount = parseInt(data.data.taskFinishArr.length)+1;//测试
         debug_print("sucess canPlayNum :" +luckDrawCount);
         luckDrawCount = luckDrawCount -parseInt(data.data.playNumber)
-        // luckDrawCount = 5; //测试
+        //luckDrawCount = 5; //测试
         luckDrawCountDom.innerHTML='抢豪礼<br>还有<span>'+luckDrawCount+'</span>次';
         clickFn(true, objectId,data.data.waterFinishArr);
       } else {
@@ -260,8 +260,10 @@ function clickFn(isLogin,objectId,arr){
       if (gameState || luckDrawCount <= 0) return;
       gameState = true; // 设置游戏当前状态
       // run game
+      _czc.push(['_trackEvent', '51活动', 'click', '抽奖', '', '']);
       game.gameRandomPrize(objectId,arr)
     } else{
+      _czc.push(['_trackEvent', '51活动', 'click', '登录', '', '']);
       try {
         window.App.login();
       } catch (e) {
@@ -284,8 +286,8 @@ function busyPopup(code,h) {
 
 function gameOverPopup(num) {
   debug_print("抽奖结果：" + prize[num].prize + 'num:' + prize[num].num);
-  if (prize[num].num == 7) {
-    var text = '<div class="notice" style="padding: 0.8rem 0 .6rem;">'
+  if (prize[num].num == 0) {
+    var text = '<div class="notice" style="padding: 0.8rem 0 .2rem;">'
       + '<p>' + prize[num].des + '</p></div> <button class="btn_ck">去查看</button>';
     popup.open({
       width: 6.11111, //设置弹出层宽度，如果不填写为300
@@ -296,7 +298,7 @@ function gameOverPopup(num) {
     $(".popUp_c h2").hide();
   } else {
     var text = '<div class="notice"><span class="' + prize[num].className + '"></span>'
-      + '<p>' + prize[num].prize + ',</p>'
+      + '<p> 恭喜您获得,' + prize[num].prize + ',</p>'
       + '<p>' + prize[num].des + '</p></div> <button class="btn_ck">去查看</button>';
     popup.open({
       width: 6.111111, //设置弹出层宽度，如果不填写为300
