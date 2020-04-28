@@ -21,7 +21,7 @@ var prize = [
   },
   {
     title: '中奖啦!',
-    des: '您可在摇钱树——金币庄园查看。',
+    des: '恭喜您获得,您可在摇钱树——金币庄园查看。',
     num: 1,
     idx: 2,
     prize: '50g水滴',
@@ -31,7 +31,7 @@ var prize = [
   },
   {
     title: '中奖啦!',
-    des: '您可在摇钱树——金币庄园查看。',
+    des: '恭喜您获得,您可在摇钱树——金币庄园查看。',
     num: 2,
     idx: 0,
     prize: '60水滴',
@@ -40,7 +40,7 @@ var prize = [
     rate_e: 0.20
   }, {
     title: '中奖啦!',
-    des: '您可在我的财富——金币查看。',
+    des: '恭喜您获得,您可在我的财富——金币查看。',
     num: 3,
     idx: 3,
     prize: '60金币',
@@ -49,7 +49,7 @@ var prize = [
     rate_e: 0.25
   }, {
     title: '中奖啦!',
-    des: '您可在我的财富——金币查看。',
+    des: '恭喜您获得,您可在我的财富——金币查看。',
     num: 4,
     idx: 6,
     prize: '80金币',
@@ -58,7 +58,7 @@ var prize = [
     rate_e: 0.20,
   }, {
     title: '中奖啦!',
-    des: '您可在我的财富——零钱查看。',
+    des: '恭喜您获得,您可在我的财富——零钱查看。',
     num: 5,
     idx: 5,
     prize: '0.88元红包',
@@ -67,7 +67,7 @@ var prize = [
     rate_e: 0,
   }, {
     title: '中奖啦!',
-    des: '您可在我的财富——零钱查看。',
+    des: '恭喜您获得,您可在我的财富——零钱查看。',
     num: 6,
     idx: 4,
     prize: '1.21元红包',
@@ -296,7 +296,7 @@ function gameOverPopup(num) {
     $(".popUp_c h2").hide();
   } else {
     var text = '<div class="notice"><span class="' + prize[num].className + '"></span>'
-      + '<p>恭喜您获得' + prize[num].prize + ',</p>'
+      + '<p>' + prize[num].prize + ',</p>'
       + '<p>' + prize[num].des + '</p></div> <button class="btn_ck">去查看</button>';
     popup.open({
       width: 6.111111, //设置弹出层宽度，如果不填写为300
