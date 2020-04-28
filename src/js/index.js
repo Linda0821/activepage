@@ -60,7 +60,7 @@ function IsLoginIn(){
     try {
       objectId = window.App.getObjectId();
     } catch (e) {
-      objectId ="5e0ee2c90f7b5e71934fa84c";
+      objectId ="109a4850af46a069537bb625";
       debug_print("getUmeUserInfo 101: " + e);
     }
     checkUid(objectId);
