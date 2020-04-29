@@ -257,7 +257,10 @@ function clickFn(isLogin,objectId,arr){
   $('#arrow').unbind("click").click(function(){
     debug_print("clickFn arrow");
     if(isLogin == true){
-      if (gameState || luckDrawCount <= 0) return;
+      if (gameState || luckDrawCount <= 0) {
+        gameEndPopup();
+        return;
+      }
       gameState = true; // 设置游戏当前状态
       // run game
       _czc.push(['_trackEvent', '51活动', 'click', '抽奖', '', '']);
@@ -282,6 +285,70 @@ function busyPopup(code,h) {
     content: html //设置内容
   });
   $("#submitBtn").html("确认");
+}
+function gameEndPopup() {
+  var text = '<div class="notice" style="padding: 0.8rem 0 .2rem;">'
+    + '<p>阅读一篇文章增加一次抽奖机会</p></div> <button class="btn_ck">去查看</button>';
+  popup.open({
+    width: 6.11111, //设置弹出层宽度，如果不填写为300
+    height: 3.16667, //设置弹出层高度，如果不填写为150
+    title: '', //设置标题
+    content: text //设置内容
+  });
+  $(".popUp_c h2").hide();
+
+  $(".popUp_c").attr("id", "pop_game");
+  $("#pop_game h2").css({
+    "height": "1.4rem",
+    "line-height": "1.4rem",
+    "color": "#653d20",
+    "font-weight": 'normal',
+    "font-size": ".6rem"
+  });
+  $("#cancelBtn").show().css({
+    "width": ".6rem",
+    "height": ".6rem",
+    "background": "url(http://browser.umeweb.com/v6/ume/img/apprentice/close1.png) no-repeat",
+    "background-size": ".6rem .6rem",
+    "position": " absolute",
+    "top": "-1.02222rem",
+    "right": "0rem"
+  });
+  $("#pop_game").css({
+    "background-color": "#FCD494"
+  });
+
+  $("#pop_game .notice").css({
+    "text-align": "left",
+    "font-size": ".6rem",
+    "color": "#653d20"
+  });
+  $("#pop_game p").css({
+    "font-size": ".33rem",
+    "text-align": "center"
+  });
+  $("#pop_game button").css({
+    "width": "2rem",
+    "height": ".7rem",
+    "line-height": ".7rem",
+    "font-size": ".3rem",
+    "text-align": "center",
+    "border": "none",
+    "color": "#fff",
+    'margin-top': '.2rem',
+    "background-color": "#FF6B60",
+    "border-radius": ".6rem"
+  });
+  $("#pop_game button").click(function () {
+    deletePop();
+    try {
+      _czc.push(['_trackEvent', '51活动', 'click', '去查看-新闻', '', '']);
+      window.App.readNews("ume://news");
+    } catch (e) {
+      debug_print("15:" + e);
+    }
+  });
+
 }
 
 function gameOverPopup(num) {
@@ -358,10 +425,13 @@ function gameOverPopup(num) {
   $("#pop_game button").click(function () {
     deletePop();
     if (prize[num].className == "img-water") {
+      _czc.push(['_trackEvent', '51活动', 'click', '去查看-金币庄园', '', '']);
       window.location.href = "http://browser.umeweb.com/v7/ume/active/estate/index.html";
     } else if (prize[num].className == "img-coin" || prize[num].className == "img-bag") {
+      _czc.push(['_trackEvent', '51活动', 'click', '去查看-财富', '', '']);
       window.location.href = "http://browser.umeweb.com/v7/ume/index.html";
     } else {
+      _czc.push(['_trackEvent', '51活动', 'click', '去查看-财富', '', '']);
       window.location.href = "http://browser.umeweb.com/v7/ume/index.html";
     }
   });
